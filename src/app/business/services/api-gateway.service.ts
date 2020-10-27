@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ApiGatewayService {
   private user:User;
-  headers: HttpHeaders = new HttpHeaders();
+  headers: HttpHeaders = new HttpHeaders({'Content-type':'application/json','Access-Control-Allow-Origin:': '*'});
   constructor(private http: HttpClient, private router:Router){  //, private security: SecurityBusiness) {
 
   }
@@ -30,9 +30,8 @@ export class ApiGatewayService {
   }
   async CreateSession(login, password): Promise<ServiceObject> {
 
-
     return this.http
-      .post(`${AppEnviroment.ApiEndPoint}Authorization/CreateSession`, { login: login, password: password })
+      .post(`${AppEnviroment.ApiEndPoint}Authorization/CreateSession/`, { login: login, password: password },{headers: this.headers})
       .toPromise()
       .then(x => {
         return Promise.resolve(<ServiceObject>x);
