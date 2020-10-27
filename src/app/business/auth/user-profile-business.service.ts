@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/model/user';
 
 
 @Injectable({
@@ -17,7 +18,7 @@ export class UserProfileBusinessService {
 
   getUser(id:number): Observable<any> {
     return this.httpClient.get( this.baseurl+ '/users/'+id+'/?format=json',
-    {headers: this.httpHeaders});
+    {headers: this.httpHeaders}) ;
   }
 
 

@@ -10,7 +10,7 @@ import { User } from 'src/app/model/user';
 })
 export class UserProfileComponent implements OnInit {
 
-  myUser: User;
+  myUser: User = new User();
 
   constructor(private userBusiness: UserProfileBusinessService) {
     this.getProjects();
@@ -18,7 +18,8 @@ export class UserProfileComponent implements OnInit {
 
   getProjects() {
     this.userBusiness.getUser(1).subscribe(data =>{
-      this.myUser = data[0];
+      console.log("Datos " + data );
+      this.myUser = data;
       console.log(this.myUser);
     }, error =>{
       console.log(error);
