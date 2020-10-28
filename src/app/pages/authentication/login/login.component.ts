@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         return;
       }
       this.onAction = true;
-      await this.business.CreateSession(form.value.userLogin, btoa(form.value.password)).then(
+      await this.business.CreateSession(form.value.userLogin, form.value.password).then(
         x => {
           if(!x.Active) //redirecciona a cambio de password
             this.router.navigate(['/auth/changePassword']);
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
     } catch (error) {
       form.reset();
-      console.log('Autenticación Fallida');
+      console.log('Autenticación Fallida'+error);
       //Swal.fire('Autenticación Fallida', error.message, 'error');
     }
     this.onAction = false;
