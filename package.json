@@ -3,12 +3,18 @@
   "version": "1.2.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "lite": "lite-server",
+    "postinstall": "ng build --prod"
+  },
+  "engines": {
+    "node": "10.14.2",
+      "npm": "6.4.1"
   },
   "private": true,
   "dependencies": {
@@ -27,9 +33,11 @@
     "chart.js": "2.9.3",
     "clipboard": "2.0.6",
     "core-js": "3.6.5",
+    "express": "^4.17.1",
     "ngx-clipboard": "13.0.1",
     "ngx-toastr": "13.0.0",
     "nouislider": "14.6.2",
+    "path": "^0.12.7",
     "rxjs": "6.6.3",
     "zone.js": "0.11.1"
   },
