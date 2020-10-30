@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "lite": "lite-server",
-    "postinstall": "ng build --prod",
+    "postinstall": "ng build --aot --target=production",
     "dev:ssr": "ng run front-hapeds:serve-ssr",
     "serve:ssr": "node dist/front-hapeds/server/main.js",
     "build:ssr": "ng build --prod && ng run front-hapeds:server:production",
