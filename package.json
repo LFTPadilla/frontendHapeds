@@ -10,12 +10,12 @@
     "e2e": "ng e2e",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "lite": "lite-server",
-    "postinstall": "ng build --prod",
     "dev:ssr": "ng run front-hapeds:serve-ssr",
     "serve:ssr": "node dist/front-hapeds/server/main.js",
     "build:ssr": "ng build --prod && ng run front-hapeds:server:production",
     "prerender": "ng run front-hapeds:prerender",
-    "start:heroku":"node dist/server"
+    "start:heroku": "node dist/server",
+    "postinstall": "npm run build:ssr"
   },
   "private": true,
   "dependencies": {
