@@ -4,9 +4,9 @@
 * Argon Dashboard Angular - v1.1.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-angular
+* Product Page: https://www.creative-tim.com/product/front-hapeds
 * Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-angular/blob/master/LICENSE.md)
+* Licensed under MIT (https://github.com/creativetimofficial/front-hapeds/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
 
@@ -25,5 +25,7 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+document.addEventListener('DOMContentLoaded', () => {
+     platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+   });

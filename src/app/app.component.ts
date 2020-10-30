@@ -8,7 +8,7 @@ import { AppEnviroment } from './model/app-enviroment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'argon-dashboard-angular';
+  title = 'front-hapeds';
 
   constructor(private router: Router, private appEnviroment: AppEnviroment) { }
 

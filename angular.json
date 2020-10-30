@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "argon-dashboard-angular": {
+    "front-hapeds": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/front-hapeds/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -59,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "argon-dashboard-angular:build"
+            "browserTarget": "front-hapeds:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "argon-dashboard-angular:build:production"
+              "browserTarget": "front-hapeds:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "argon-dashboard-angular:build"
+            "browserTarget": "front-hapeds:build"
           }
         },
         "test": {
@@ -95,16 +95,64 @@
           "options": {
             "tsConfig": [
               "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "src/tsconfig.spec.json",
+              "src/tsconfig.server.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/front-hapeds/server",
+            "main": "server.ts",
+            "tsConfig": "src/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "front-hapeds:build",
+            "serverTarget": "front-hapeds:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "front-hapeds:build:production",
+              "serverTarget": "front-hapeds:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "front-hapeds:build:production",
+            "serverTarget": "front-hapeds:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
+          }
         }
       }
     },
-    "argon-dashboard-angular-e2e": {
+    "front-hapeds-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -112,11 +160,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "argon-dashboard-angular:serve"
+            "devServerTarget": "front-hapeds:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "argon-dashboard-angular:serve:production"
+              "devServerTarget": "front-hapeds:serve:production"
             }
           }
         },
@@ -132,7 +180,7 @@
       }
     }
   },
-  "defaultProject": "argon-dashboard-angular",
+  "defaultProject": "front-hapeds",
   "schematics": {
     "@schematics/angular:component": {
       "styleext": "scss"
