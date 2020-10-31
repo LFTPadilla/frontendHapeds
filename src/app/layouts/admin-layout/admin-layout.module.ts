@@ -12,7 +12,7 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UsersComponent } from 'src/app/pages/master/users/users.component';
+import { UsersModule } from 'src/app/pages/master/users/users.module';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -22,15 +22,15 @@ import { UsersComponent } from 'src/app/pages/master/users/users.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    ClipboardModule,
+    UsersModule
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     TablesComponent,
     IconsComponent,
-    MapsComponent,
-    UsersComponent
+    MapsComponent
   ]
 })
 
