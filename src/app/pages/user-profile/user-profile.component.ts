@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfileBusinessService } from 'src/app/business/auth/user-profile-business.service';
 import { User } from 'src/app/model/user';
+import { UserOriginal } from 'src/app/model/userOriginal';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,7 +11,7 @@ import { User } from 'src/app/model/user';
 })
 export class UserProfileComponent implements OnInit {
 
-  myUser: User = new User();
+  myUser: UserOriginal = new UserOriginal();
 
   constructor(private userBusiness: UserProfileBusinessService) {
     this.getProjects();

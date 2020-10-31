@@ -25,6 +25,7 @@
     "@ng-bootstrap/ng-bootstrap": "7.0.0",
     "bootstrap": "4.5.2",
     "chart.js": "2.9.3",
+    "chokidar": "^3.4.3",
     "clipboard": "2.0.6",
     "core-js": "3.6.5",
     "ngx-clipboard": "13.0.1",

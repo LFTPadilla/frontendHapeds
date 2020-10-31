@@ -28,7 +28,7 @@ import { AppEnviroment } from './model/app-enviroment';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
   ],
   providers: [ AppEnviroment ],
   bootstrap: [AppComponent]
