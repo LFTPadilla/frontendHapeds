@@ -30,7 +30,7 @@ import { BrowserModule } from '@angular/platform-browser';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
   ],
   providers: [ AppEnviroment ],
   bootstrap: [AppComponent]

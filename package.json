@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -31,6 +31,7 @@
     "@nguniversal/express-engine": "^10.1.0",
     "bootstrap": "4.5.2",
     "chart.js": "2.9.3",
+    "chokidar": "^3.4.3",
     "clipboard": "2.0.6",
     "core-js": "3.6.5",
     "express": "^4.17.1",
