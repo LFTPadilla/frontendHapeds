@@ -12,8 +12,7 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ListadoUsuariosComponent } from 'src/app/pages/listado-usuarios/listado-usuarios.component';
-
+import { UsersComponent } from 'src/app/pages/master/users/users.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -31,7 +30,7 @@ import { ListadoUsuariosComponent } from 'src/app/pages/listado-usuarios/listado
     TablesComponent,
     IconsComponent,
     MapsComponent,
-    ListadoUsuariosComponent
+    UsersComponent
   ]
 })
 

@@ -14,10 +14,10 @@ export class UserProfileComponent implements OnInit {
   myUser: UserOriginal = new UserOriginal();
 
   constructor(private userBusiness: UserProfileBusinessService) {
-    this.getProjects();
+    this.getUser();
   }
 
-  getProjects() {
+  getUser() {
     this.userBusiness.getUser(1).subscribe(data =>{
       console.log("Datos " + data );
       this.myUser = data;
