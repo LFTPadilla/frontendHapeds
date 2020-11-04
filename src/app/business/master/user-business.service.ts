@@ -26,6 +26,12 @@ export class UserBusinessService {
     {headers: this.httpHeaders}) ;
   }
 
+  getProjects(): Observable<any> {
+    let ruta = `${AppEnviroment.ApiEndPoint}app/list-projects/`
+    return this.httpClient.get( ruta,
+    {headers: this.httpHeaders}) ;
+  }
+
 
   public async GetUserJson(): Promise<User[]> {
     let serviceObj = new ServiceObject("UserService", 'AdminUser', 'GetUsers');

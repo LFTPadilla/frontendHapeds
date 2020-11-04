@@ -13,6 +13,7 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersModule } from 'src/app/pages/master/users/users.module';
+import { ProjectsModule } from 'src/app/pages/master/projects/projects.module';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -23,7 +24,9 @@ import { UsersModule } from 'src/app/pages/master/users/users.module';
     HttpClientModule,
     NgbModule,
     ClipboardModule,
-    UsersModule
+    UsersModule,
+    ProjectsModule 
+
   ],
   declarations: [
     DashboardComponent,
