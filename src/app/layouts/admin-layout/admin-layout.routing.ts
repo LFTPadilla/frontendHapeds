@@ -12,7 +12,7 @@ import { ProjectsComponent } from 'src/app/pages/master/projects/projects.compon
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'list-users',     component: UsersComponent },
+    { path: 'list-members',     component: UsersComponent },
     { path: 'projects',       component: ProjectsComponent },
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },

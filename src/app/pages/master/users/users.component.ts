@@ -16,12 +16,13 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-    this.userBusiness.getUsers().subscribe(data =>{
-      console.log("Datos " + data );
-     this.users = data;
-    }, error =>{
-      console.log(error);
-    })
+    //Nuevo
+    this.userBusiness.GetUsers().then(x => {
+      this.users = x
+      console.log("Se cargaron correctamente los usuarios"+x);
+    }).catch(x => {
+      console.log("error"+x);
+    });
   }
 
   ngOnInit(){

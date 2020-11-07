@@ -58,7 +58,7 @@ export class ApiGatewayService {
     this.LoadUser();
     serviceObject.SessionToken = this.user.SessionToken;
     return this.http
-      .post(`${AppEnviroment.ApiEndPoint}ServiceRouter/PostAction`, serviceObject)
+      .post(`${AppEnviroment.ApiEndPoint}app/`+serviceObject.Action+'/', serviceObject)
       .toPromise()
       .then(x => {
         return Promise.resolve(this.ValidateSecurity(<ServiceObject>x));
