@@ -13,7 +13,10 @@ export class ProjectBusinessService {
 
   public GetProjects(): Promise<Project[]> {
     let serviceObj = new ServiceObject("ProjectService", 'Project', 'list-projects');
-
+    let proy = new Project()
+    proy.Title = "Un proyecto sin alma porque es falso"
+    proy.ProjectId = "Proyecto Fantasma"
+    return Promise.resolve([proy] as Project[])
     return this.apiGatewayService.PostAction(serviceObj)
       .then(x => {
         console.log(x);
