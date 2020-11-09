@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersModule } from 'src/app/pages/master/users/users.module';
 import { ProjectsModule } from 'src/app/pages/master/projects/projects.module';
 import { TasksModule } from 'src/app/pages/master/tasks/tasks.module';
+import { BacklogModule } from 'src/app/pages/master/backlog/backlog.module';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { TasksModule } from 'src/app/pages/master/tasks/tasks.module';
     ClipboardModule,
     UsersModule,
     ProjectsModule,
-    TasksModule
+    TasksModule, 
+    BacklogModule
   ],
   declarations: [
     DashboardComponent,

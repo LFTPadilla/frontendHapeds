@@ -9,12 +9,14 @@ import { UsersComponent } from 'src/app/pages/master/users/users.component';
 import { ProjectsModule } from 'src/app/pages/master/projects/projects.module';
 import { ProjectsComponent } from 'src/app/pages/master/projects/projects.component';
 import { TasksComponent } from 'src/app/pages/master/tasks/tasks.component';
+import { BacklogComponent } from 'src/app/pages/master/backlog/backlog.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'list-members',     component: UsersComponent },
     { path: 'projects',       component: ProjectsComponent },
+    { path: 'backlog',       component:  BacklogComponent },
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
