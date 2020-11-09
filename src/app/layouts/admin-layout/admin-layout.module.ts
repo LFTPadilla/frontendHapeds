@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -22,14 +22,16 @@ import { BacklogModule } from 'src/app/pages/master/backlog/backlog.module';
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
+    BacklogModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
     ClipboardModule,
     UsersModule,
     ProjectsModule,
-    TasksModule, 
-    BacklogModule
+    TasksModule,
+
   ],
   declarations: [
     DashboardComponent,

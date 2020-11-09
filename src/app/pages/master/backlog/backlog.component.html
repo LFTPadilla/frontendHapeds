@@ -6,6 +6,7 @@
 </div>
 
 <div class="container-fluid mt--7">
+
     <!-- Table -->
     <div class="row">
       <div class="col">
@@ -39,7 +40,7 @@
                     </span>
                   </td>
                   <td class="text-right">
-                    <button type="button" class="btn btn-success"><a href="#/list-members">Editar</a></button>
+                    <button type="button" class="btn btn-success" (click)="LauchModal(req.RequirementId)">Editar</button>
                   </td>
                 </tr>
 
@@ -75,4 +76,7 @@
       </div>
     </div>
   </div>
+
+
+<app-requirement-edit #ModalEditRequirement ></app-requirement-edit>
 

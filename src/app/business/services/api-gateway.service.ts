@@ -54,14 +54,14 @@ export class ApiGatewayService {
   }
 
 
-  async PostAction(serviceObject: ServiceObject): Promise<ServiceObject> {
+  async PostAction(serviceObject: ServiceObject): Promise<any> {
     this.LoadUser();
     serviceObject.SessionToken = this.user.SessionToken;
     return this.http
-      .post(`${AppEnviroment.ApiEndPoint}app/`+serviceObject.Action+'/', serviceObject)
+      .post(`${AppEnviroment.ApiEndPoint}app/`+serviceObject.Action+'/', serviceObject.Data)
       .toPromise()
       .then(x => {
-        return Promise.resolve(this.ValidateSecurity(<ServiceObject>x));
+        return Promise.resolve(x);
       })
       .catch(x => {
         throw x;
