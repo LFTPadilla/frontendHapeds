@@ -11,12 +11,13 @@ import { Requirement } from 'src/app/model/Requirement';
 export class RequirementEditComponent implements OnInit {
 
   RequirementOpened=new Requirement();
+
   @ViewChild( 'ModalEdit',{static: false} ) modalEdit;
 
   constructor(private modalService: NgbModal,private requirementBussines: RequirementsBusinessService  ) { }
 
-  LauchModal(req: Requirement) {
-    this.RequirementOpened = req;
+  LaunchModal(req: Requirement) {
+    Object.assign(this.RequirementOpened,req);
 
     this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title'});
   }
@@ -25,6 +26,7 @@ export class RequirementEditComponent implements OnInit {
 
     this.requirementBussines.SaveRequirement(this.RequirementOpened).then(x=> {
       this.modalService.dismissAll('Save')
+      
       console.log("Se guardo correctamente el Backlog "+x);
     }).catch(x => {
       console.log("error "+x)

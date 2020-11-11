@@ -25,7 +25,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let req of backlog">
+                <tr *ngFor="let req of requirements">
                   <th scope="row">
                     <div class="media-body">
                       <span class="mb-0 text-sm">{{req.RequirementId}}</span>
@@ -36,7 +36,7 @@
                   </td>
                   <td>
                     <span class="badge badge-dot mr-4">
-                      <i class="bg-success"></i> {{req.EspecificationLink?'Si':'No'}}
+                      <i class="bg-success"></i> <a href="{{req.EspecificationLink}}">{{req.EspecificationLink}}</a>
                     </span>
                   </td>
                   <td class="text-right">

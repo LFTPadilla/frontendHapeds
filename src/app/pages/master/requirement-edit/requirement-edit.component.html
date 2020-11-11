@@ -1,6 +1,6 @@
 <ng-template #ModalEdit let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">Requirement Edit</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -11,9 +11,27 @@
 
       <div class="form-row">
         <div class="col-12">
+            
+            <label for="etiqueta">RequirementId</label>
+            <input type="text" class="form-control" name="RequirementId" #RequirementId required [(ngModel)]="RequirementOpened.RequirementId">
+            <label for="etiqueta">ProjectId</label>
+            <input type="text" class="form-control" name="ProjectId" #ProjectId required [(ngModel)]="RequirementOpened.ProjectId">
             <label for="etiqueta">Titulo</label>
             <input type="text" class="form-control" name="Title" #Title required [(ngModel)]="RequirementOpened.Title">
-        </div>
+            <label for="etiqueta">Description</label>
+            <input type="textarea" class="form-control" name="Description" #Description required [(ngModel)]="RequirementOpened.Description">
+            <label for="etiqueta">Especification Link</label>
+            <input type="text" class="form-control" name="EspecificationLink" #EspecificationLink required [(ngModel)]="RequirementOpened.EspecificationLink">
+            <label for="etiqueta">Creation</label>
+            <input type="text" class="form-control" name="Creation" #Creation required [(ngModel)]="RequirementOpened.Creation">
+            <label for="etiqueta">Edition</label>
+            <input type="text" class="form-control" name="Edition" #Edition required [(ngModel)]="RequirementOpened.Edition">
+            <label for="etiqueta">PlannedEffort</label>
+            <input type="number" step="0.1" class="form-control" name="PlannedEffort" #PlannedEffort required [(ngModel)]="RequirementOpened.PlannedEffort">
+            <label for="etiqueta">RealEffort</label>
+            <input type="number" step="0.1" class="form-control" name="RealEffort" #RealEffort required [(ngModel)]="RequirementOpened.RealEffort">
+
+          </div>
         <div class="col-12">
 
         </div>

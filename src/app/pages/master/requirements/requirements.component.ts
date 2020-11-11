@@ -1,20 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequirementsBusinessService } from 'src/app/business/master/requirements-business.service';
-
 import { Requirement } from 'src/app/model/Requirement';
 
 @Component({
-  selector: 'app-backlog',
-  templateUrl: './backlog.component.html',
-  styleUrls: ['./backlog.component.scss']
+  selector: 'app-requirements',
+  templateUrl: './requirements.component.html',
+  styleUrls: ['./requirements.component.scss']
 })
-export class BacklogComponent implements OnInit {
-
+export class RequirementsComponent implements OnInit {
 
   @ViewChild( 'ModalEditRequirement',{static: false} ) modalEditRequirement;
 
-  backlog: Requirement[] = [];
+  requirements: Requirement[] = [];
   closeResult = '';
 
   constructor(private requirementBussines: RequirementsBusinessService ) {
@@ -23,10 +20,10 @@ export class BacklogComponent implements OnInit {
 
 
   GetRequirements(){
-    let idPro = "3";
+    let idReq = "3";
     this.requirementBussines.GetRequirements().then(x=> {
-      this.backlog = x
-      console.log("Se cargó correctamente el Backlog "+x);
+      this.requirements = x
+      console.log("Se cargaron correctamente los requirements "+x);
     }).catch(x => {
       console.log("error "+x)
     });
@@ -34,7 +31,7 @@ export class BacklogComponent implements OnInit {
 
   LaunchModal(reqId: string) {
     //Buscar objeto local
-    let reqObj = this.backlog.filter(x=>{
+    let reqObj = this.requirements.filter(x=>{
       return x.RequirementId==reqId;
     })[0];
 
@@ -45,5 +42,6 @@ export class BacklogComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
 
 }

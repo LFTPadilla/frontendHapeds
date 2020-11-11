@@ -8,40 +8,39 @@ import { ApiGatewayService } from '../services/api-gateway.service';
 })
 export class RequirementsBusinessService {
 
-  constructor(private apiGatewayService: ApiGatewayService)  { }
+  constructor(private apiGatewayService: ApiGatewayService) { }
 
 
-  public GetRequirements(projectId: string): Promise<Requirement[]> {
-    let serviceObj = new ServiceObject("Hapeds", 'Requiremente', 'GetRequirements');
-    serviceObj.Data = { projectId }
+  public GetRequirements(): Promise<Requirement[]> {
+    let serviceObj = new ServiceObject("Hapeds", 'Requirements', 'GetRequirements');
+    //serviceObj.Data = { projectId }
     return this.apiGatewayService.PostAction(serviceObj)
       .then(x => {
-        const projects = x as Requirement[];
-        return projects;
+        const requirements = x as Requirement[];
+        return requirements;
       })
       .catch(x => {
         throw x
       });
-    }
+  }
 
-    public SaveRequirement(requiremet: Requirement): Promise<number> {
+  public SaveRequirement(requirement: Requirement): Promise<number> {
 
-      let serviceObject = new ServiceObject('TagsLogic', 'MaterialsRequest', 'SaveRequirement');
-      serviceObject.Data = { requiremet };
+    let serviceObject = new ServiceObject('Hapeds', 'Requirements', 'SaveRequirement');
+    serviceObject.Data = { requirement };
 
-      return this.apiGatewayService.PostAction(serviceObject)
-        .then(x => {
-          serviceObject = x as ServiceObject;
-          if (!serviceObject.Success) {
-            throw new Error(serviceObject.Message);
-          } else {
-            return serviceObject.Data as number;
-          }
-        })
-        .catch(x => {
-          throw x.message;
-        });
-    }
+    return this.apiGatewayService.PostAction(serviceObject)
+      .then(x => {
+       /*  serviceObject = x as ServiceObject;
+        if (!serviceObject.Success) {
+          throw new Error(serviceObject.Message);
+        } */
+        return x.Data;
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 
 
 
