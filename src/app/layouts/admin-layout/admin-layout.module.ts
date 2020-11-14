@@ -17,6 +17,7 @@ import { ProjectsModule } from 'src/app/pages/master/projects/projects.module';
 import { TasksModule } from 'src/app/pages/master/tasks/tasks.module';
 import { BacklogModule } from 'src/app/pages/master/backlog/backlog.module';
 import { RequirementsModule } from 'src/app/pages/master/requirements/requirements.module';
+import { IterationEditModule } from 'src/app/pages/master/iteration-edit/iteration-edit.module';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -32,7 +33,8 @@ import { RequirementsModule } from 'src/app/pages/master/requirements/requiremen
     UsersModule,
     ProjectsModule,
     TasksModule,
-    RequirementsModule
+    RequirementsModule, 
+    IterationEditModule
 
   ],
   declarations: [

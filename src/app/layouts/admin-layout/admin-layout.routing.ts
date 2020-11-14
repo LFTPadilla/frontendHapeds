@@ -11,6 +11,7 @@ import { ProjectsComponent } from 'src/app/pages/master/projects/projects.compon
 import { TasksComponent } from 'src/app/pages/master/tasks/tasks.component';
 import { BacklogComponent } from 'src/app/pages/master/backlog/backlog.component';
 import { RequirementsComponent } from 'src/app/pages/master/requirements/requirements.component';
+import { IterationEditComponent } from 'src/app/pages/master/iteration-edit/iteration-edit.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
