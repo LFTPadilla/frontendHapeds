@@ -17,8 +17,8 @@
             <div class="col-2">
               <label for="ProjSel">Proyecto</label>
               <ng-select [items]="Projects" name="ProjSel" #ProjSel
-              bindLabel="ProjectId"
-              bindValue="Title"
+              bindLabel="Title"
+              bindValue="ProjectId"
               [(ngModel)]="this.ProjectSelected">
               </ng-select>
             </div>
@@ -28,8 +28,8 @@
             <div class="col-2">
               <label for="IterSel">Iteración</label>
               <ng-select [items]="Iteration" name="IterSel" #IterSel
-              bindLabel="ProjectId"
-              bindValue="Title"
+              bindLabel="Title"
+              bindValue="ProjectId"
               [(ngModel)]="this.IterationSelected">
               </ng-select>
             </div>
@@ -80,3 +80,4 @@
   </div>
 </div>
 
+<app-iteration-edit #ModalEditIteration></app-iteration-edit>

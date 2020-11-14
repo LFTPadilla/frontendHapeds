@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [RequirementsComponent, RequirementEditComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule //Se pone en el padre (Layout-admin) para que sea general a todos
   ]
 })
 export class RequirementsModule { }

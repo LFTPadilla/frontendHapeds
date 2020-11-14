@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Project } from 'src/app/model/project';
 
 @Component({
@@ -13,12 +13,13 @@ export class PlannerScrumComponent implements OnInit {
   IterationSelected:Project;
   Iteration:Project[] = [ new Project() ];
 
+  @ViewChild( 'ModalEditIteration',{static: false} ) modalEditIteration;
 
 
   constructor() { }
 
   NewIteration(){
-
+    this.modalEditIteration.LaunchModal(); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
   }
 
   ngOnInit(): void {

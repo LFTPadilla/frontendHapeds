@@ -10,6 +10,7 @@ import { ProjectsModule } from 'src/app/pages/master/projects/projects.module';
 import { ProjectsComponent } from 'src/app/pages/master/projects/projects.component';
 import { TasksComponent } from 'src/app/pages/master/tasks/tasks.component';
 import { RequirementsComponent } from 'src/app/pages/master/requirements/requirements.component';
+import { IterationEditComponent } from 'src/app/pages/master/iteration-edit/iteration-edit.component';
 import { PlannerScrumComponent } from 'src/app/pages/master/planner-scrum/planner-scrum.component';
 
 export const AdminLayoutRoutes: Routes = [
