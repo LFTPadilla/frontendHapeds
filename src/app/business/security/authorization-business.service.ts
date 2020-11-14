@@ -11,36 +11,40 @@ export class AuthorizationBusinessService {
 
   constructor(private apigateway:ApiGatewayService,private router: Router) { }
 
-  public async CreateSession(login : string, password : string) 
+  public async CreateSession(login : string, password : string)
   {
     return this.apigateway.CreateSession(login, password)
       .then(x => {
-        let serviceResponse = <ServiceObject>x;
+        /* let serviceResponse = <ServiceObject>x;
         if (!serviceResponse.Success)
           throw new Error(serviceResponse.Message);
         //Guarda Usuario en Session
         serviceResponse.Data.SessionToken = serviceResponse.SessionToken;
-        AppEnviroment.User = serviceResponse.Data;
 
-        //Mapea objeto   
-        return Promise.resolve(serviceResponse.User);
+        */
+       if(x.Success){
+        AppEnviroment.User = x.User;
+       }
+
+        //Mapea objeto
+        return Promise.resolve(x);
       })
       .catch(x => {
         throw x;
       });
   }
 
-  public CloseSession() 
+  public CloseSession()
   {
+
     AppEnviroment.CloseSession();
-    this.router.navigate(['/auth/signin']);
   }
 
   public ValidateSession() : boolean
   {
     if(AppEnviroment.User == null)
       {
-        this.CloseSession();     
+        this.CloseSession();
         return false;
       }
       return true;
@@ -53,8 +57,8 @@ export class AuthorizationBusinessService {
         let serviceResponse = <ServiceObject>x;
         if (!serviceResponse.Success)
           throw new Error(serviceResponse.Message);
-        
-        //Mapea objeto   
+
+        //Mapea objeto
         return Promise.resolve(serviceResponse.Message);
       })
       .catch(x => {

@@ -1,0 +1,75 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt-7">
+
+<!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <!-- Cabecera -->
+        <div class="card-header border-0">
+          <!-- <h3 class="mb-0">Lista de Proyectos</h3> -->
+          <div class="row">
+            <div class="col-2">
+              <label for="ProjSel">Proyecto</label>
+              <ng-select [items]="Projects" name="ProjSel" #ProjSel
+              bindLabel="ProjectId"
+              bindValue="Title"
+              [(ngModel)]="this.ProjectSelected">
+              </ng-select>
+            </div>
+            <div class="col-1" style="margin-top: 2em">
+              <button type="button" class="btn btn-info btn-sm"  >+</button>
+            </div>
+            <div class="col-2">
+              <label for="IterSel">Iteración</label>
+              <ng-select [items]="Iteration" name="IterSel" #IterSel
+              bindLabel="ProjectId"
+              bindValue="Title"
+              [(ngModel)]="this.IterationSelected">
+              </ng-select>
+            </div>
+            <div class="col-1" style="margin-top: 2em;">
+              <button type="button" class="btn btn-info btn-sm" (click)="NewIteration()">+</button>
+            </div>
+          </div>
+
+
+          <div class="row" style="margin-top:1em">
+
+            <!-- LIST TASKS -->
+            <div class="col-3">
+
+              <div class="card shadow">
+                <!-- Cabecera -->
+                <div class="card-header">
+
+                  <h2 style="display:inline-block">Tareas</h2>
+                  <button type="button" style="float:right" class="btn btn-info btn-sm" >+</button>
+                </div>
+
+                <!-- Listado -->
+                <ul>
+                  <li *ngFor="let task of [1,2,3,4]">TAREA {{task}}</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- KANBAN  -->
+            <div class="col-9">
+
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
