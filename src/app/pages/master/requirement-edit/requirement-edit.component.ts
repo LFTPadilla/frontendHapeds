@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequirementsBusinessService } from 'src/app/business/master/requirements-business.service';
 import { Requirement } from 'src/app/model/Requirement';
@@ -11,6 +11,8 @@ import { Requirement } from 'src/app/model/Requirement';
 export class RequirementEditComponent implements OnInit {
 
   RequirementOpened=new Requirement();
+
+  @Output() OnSaveEvent = new EventEmitter<boolean>();
 
   @ViewChild( 'ModalEdit',{static: false} ) modalEdit;
 
@@ -25,8 +27,8 @@ export class RequirementEditComponent implements OnInit {
   SaveRequirement(){
 
     this.requirementBussines.SaveRequirement(this.RequirementOpened).then(x=> {
-      this.modalService.dismissAll('Save')
-      
+      this.modalService.dismissAll('Save');
+      this.OnSaveEvent.emit();
       console.log("Se guardo correctamente el Backlog "+x);
     }).catch(x => {
       console.log("error "+x)
