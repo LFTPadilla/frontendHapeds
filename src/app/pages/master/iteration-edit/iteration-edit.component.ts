@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Iteration } from 'src/app/model/Iteration';
-import { Requirement } from 'src/app/model/Requirement';
 
 @Component({
   selector: 'app-iteration-edit',
@@ -19,7 +18,7 @@ export class IterationEditComponent implements OnInit {
   LaunchModal(/*req: Requirement*/) {
     //Object.assign(this.IterationOpened,req);
 
-    this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title'});
+    this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title', size:'xl'});
   }
 /* 
   SaveRequirement(){

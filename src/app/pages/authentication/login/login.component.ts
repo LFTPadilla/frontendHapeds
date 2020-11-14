@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizationBusinessService } from 'src/app/business/security/authorization-business.service';
+import Swal from 'sweetalert2';
 
 export class FormInput {
   userLogin: any;
@@ -34,7 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   public async Authenticate(form){
     try
     {
-
       if (!form.valid) {
         this.isSubmit = true;
         return;
@@ -42,10 +42,15 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.onAction = true;
       await this.business.CreateSession(form.value.userLogin, form.value.password).then(
         x => {
-          if(!x.Active) //redirecciona a cambio de password
-            this.router.navigate(['/auth/changePassword']);
-          else  //Redirecciona a menú
+          if(x.Success)
             this.router.navigate(['/api/']);
+          else
+            Swal.fire({
+              title: 'Error',
+              text: 'Credenciales invalidas',
+              icon: 'error',
+              confirmButtonText: 'Cerrar'
+            });
         }
       ).catch(
         x => {
@@ -54,8 +59,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
     } catch (error) {
       form.reset();
-      console.log('Autenticación Fallida'+error);
-      //Swal.fire('Autenticación Fallida', error.message, 'error');
+      //console.log('Autenticación Fallida'+error);
+      Swal.fire('Autenticación Fallida', error.message, 'error');
     }
     this.onAction = false;
   }

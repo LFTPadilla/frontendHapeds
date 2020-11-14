@@ -44,12 +44,12 @@ export class UserBusinessService {
 
     return this.apiGatewayService.PostAction(serviceObj)
       .then(x => {
-        serviceObj = x as ServiceObject;
+        /* serviceObj = x as ServiceObject;
         if (!serviceObj.Success) {
           throw new Error(serviceObj.Message);
-        }
+        } */
 
-        return serviceObj.Data as User[];
+        return x as User[];
       })
       .catch(x => {
         throw x

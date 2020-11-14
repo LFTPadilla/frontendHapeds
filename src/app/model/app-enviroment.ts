@@ -12,7 +12,6 @@ export class AppEnviroment {
          return  JSON.parse(atob( localStorage.getItem("u")));
       else
          return new User();
-
    }
 
    static set User(user: User) {

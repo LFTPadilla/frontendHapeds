@@ -15,16 +15,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersModule } from 'src/app/pages/master/users/users.module';
 import { ProjectsModule } from 'src/app/pages/master/projects/projects.module';
 import { TasksModule } from 'src/app/pages/master/tasks/tasks.module';
-import { BacklogModule } from 'src/app/pages/master/backlog/backlog.module';
 import { RequirementsModule } from 'src/app/pages/master/requirements/requirements.module';
 import { IterationEditModule } from 'src/app/pages/master/iteration-edit/iteration-edit.module';
+import { PlannerScrumModule } from 'src/app/pages/master/planner-scrum/planner-scrum.module';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
-    BacklogModule,
+    FormsModule,
+    ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -33,9 +34,8 @@ import { IterationEditModule } from 'src/app/pages/master/iteration-edit/iterati
     UsersModule,
     ProjectsModule,
     TasksModule,
-    RequirementsModule, 
-    IterationEditModule
-
+    RequirementsModule,
+    PlannerScrumModule
   ],
   declarations: [
     DashboardComponent,
