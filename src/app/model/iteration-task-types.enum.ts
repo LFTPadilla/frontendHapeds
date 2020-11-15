@@ -1,4 +1,4 @@
-export enum TaskTypes {
+export enum IterationTaskTypes {
 
   Design,
   Requeriments,

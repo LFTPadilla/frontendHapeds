@@ -54,11 +54,11 @@
                 </div>
 
                 <!-- Listado -->
-                <div class="row taskRow" *ngFor="let task of [1,2,3,4]" >
-                  <div class="col-8" >TAREA {{task}}</div>
+                <div class="row taskRow" *ngFor="let task of iterationTasks" >
+                  <div class="col-8" >{{task.Title}}</div>
                   <div class="col-4">
-                    <button type="button" class="btn btn-primary btn-sm" >*</button>
-                    <button type="button" class="btn btn-info btn-sm" >&gt;</button>
+                    <button type="button" title="Más opciones" class="btn btn-primary btn-sm" >*</button>
+                    <button type="button" title="Añadir a la semana->" (click)="AddTasktoWeek(task)" class="btn btn-info btn-sm" >&gt;</button>
                   </div>
                 </div>
                 <div class="row" style="margin-top:30px"><div class="col-12"></div></div>
@@ -104,7 +104,7 @@
                       (cdkDropListDropped)="drop($event)">
                         <div class="task" *ngFor="let item of column.tasks" cdkDrag>
 
-                          <a  (click)="LaunchModalTagTask()" class="a" >{{ item.TitleTask }}</a> <br>
+                          <a  (click)="LaunchModalTagTask()" class="a" >{{ item.Title }}</a> <br>
                           <p style="display:inline">Tipo: {{item.TaskType}} <br>PF: {{item.PlannedEffort}}</p>
 
 

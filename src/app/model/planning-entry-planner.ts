@@ -1,11 +1,11 @@
 import { AgileStates } from './agile-states.enum';
-import { TaskTypes } from './task-types.enum';
+import { IterationTaskTypes } from './iteration-task-types.enum';
 
 export class PlanningEntryPlanner {
 
 
-  constructor( public TitleTask: string
-    , public TaskType: TaskTypes
+  constructor(public Code: string, public Title: string
+    , public TaskType: IterationTaskTypes
     , public PlannedEffort: number
     , public State: AgileStates){  }
 
