@@ -104,8 +104,8 @@
                       (cdkDropListDropped)="drop($event)">
                         <div class="task" *ngFor="let item of column.tasks" cdkDrag>
 
-                          <a  (click)="LaunchModalTagTask()" class="a" >{{ item }}</a> <br>
-                          <p style="display:inline">Tipo: Desarrollador <br>PF: 2.5</p>
+                          <a  (click)="LaunchModalTagTask()" class="a" >{{ item.TitleTask }}</a> <br>
+                          <p style="display:inline">Tipo: {{item.TaskType}} <br>PF: {{item.PlannedEffort}}</p>
 
 
                         </div>

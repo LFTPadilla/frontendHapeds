@@ -3,6 +3,9 @@ import { Board } from 'src/app/model/board';
 import { Column } from 'src/app/model/column';
 import { Project } from 'src/app/model/project';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { PlanningEntryPlanner } from 'src/app/model/planning-entry-planner';
+import { TaskTypes } from 'src/app/model/task-types.enum';
+import { AgileStates } from 'src/app/model/agile-states.enum';
 
 @Component({
   selector: 'app-planner-scrum',
@@ -17,19 +20,20 @@ export class PlannerScrumComponent implements OnInit {
   Iteration:Project[] = [ new Project() ];
 
   @ViewChild( 'ModalEditIteration',{static: false} ) modalEditIteration;
-
+  taskTypes = TaskTypes;
+  agileStates = AgileStates;
 
   constructor() { }
 
   board: Board = new Board('Semana 3 (28Jul-31Jul)', [
     new Column('PLANEADO', [
-      "WEB600 Formulario Envi",
-      "WEB601 Form recibir ma",
-      "WEB601 Form gestión"
+      new PlanningEntryPlanner("WEB600 Formulario Envi",this.taskTypes.Develop,1,this.agileStates.Planned),
+      new PlanningEntryPlanner("WEB601 Form recibir ma",this.taskTypes.Develop,1,this.agileStates.Planned),
+      new PlanningEntryPlanner("WEB601 Form gestión",this.taskTypes.Develop,1,this.agileStates.Planned)
     ]),
     new Column('EN PROGRESO', [
-      "WEB410 Cambio Form Be",
-      "WEB430 Cambio Traslad",
+      new PlanningEntryPlanner("WEB410 Cambio Form Be",this.taskTypes.Develop,1,this.agileStates.Planned),
+      new PlanningEntryPlanner("WEB430 Cambio Traslad",this.taskTypes.Develop,1,this.agileStates.Planned)
     ]),
     new Column('EN REVISIÓN', [
     ]),
