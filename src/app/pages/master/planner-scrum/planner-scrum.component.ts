@@ -7,6 +7,8 @@ import { PlanningEntryPlanner } from 'src/app/model/planning-entry-planner';
 import { IterationTaskTypes } from 'src/app/model/iteration-task-types.enum';
 import { AgileStates } from 'src/app/model/agile-states.enum';
 import { IterationTask } from 'src/app/model/iteration-task';
+import { Iteration } from 'src/app/model/Iteration';
+import { IterationsBusinessService } from 'src/app/business/master/iterations-business.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,10 +18,10 @@ import Swal from 'sweetalert2';
 })
 export class PlannerScrumComponent implements OnInit {
 
-  ProjectSelected:Project;
-  Projects:Project[] = [ new Project() ];
-  IterationSelected:Project;
-  Iteration:Project[] = [ new Project() ];
+  ProjectSelected:Project = null;
+  Projects:Project[] = [ new Project("4145","title" ) ];
+  IterationSelected:Iteration;
+  iterations: Iteration[] = [];
 
   iterationTasks: IterationTask[] = [new IterationTask("code1","Tarea 1"),new IterationTask("code2","Tarea 2")];
 
@@ -29,7 +31,9 @@ export class PlannerScrumComponent implements OnInit {
   taskTypes = IterationTaskTypes;
   agileStates = AgileStates;
 
-  constructor() { }
+  constructor(private iterationBussines : IterationsBusinessService) {
+    this.GetIterations();
+   }
 
   board: Board = new Board('Semana 3 (28Jul-31Jul)', [
     new Column('PLANEADO', [
@@ -82,8 +86,30 @@ export class PlannerScrumComponent implements OnInit {
 
   }
 
+  GetIterations(){
+    this.iterationBussines.GetIterations()
+    .then(x => {
+      this.iterations = x;
+      console.log("Se cargaron correctamente las iteraciones"+x);
+    }).catch(x => {
+      console.log("error en las iteraciones"+x)
+    })
+  }
   NewIteration(){
-    this.modalEditIteration.LaunchModal(); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
+    console.log("Project"+this.ProjectSelected != null)//null != null True
+    console.log("Project"+this.ProjectSelected)
+    if (this.ProjectSelected != null){
+      this.modalEditIteration.LaunchModal(this.ProjectSelected.ProjectId); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
+
+    }else{
+      Swal.fire({
+        title: 'Advertencia',
+        text: 'Por favor seleccione un proyecto',
+        icon: 'warning',
+        confirmButtonText: 'Cerrar'
+      });
+
+    }
   }
 
   LaunchModalTagTask() {

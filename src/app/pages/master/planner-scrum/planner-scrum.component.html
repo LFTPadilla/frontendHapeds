@@ -19,7 +19,6 @@
               <label for="ProjSel">Proyecto</label>
               <ng-select [items]="Projects" name="ProjSel" #ProjSel
               bindLabel="Title"
-              bindValue="ProjectId"
               [(ngModel)]="this.ProjectSelected">
               </ng-select>
             </div>
@@ -27,11 +26,11 @@
               <button type="button" class="btn btn-info btn-sm"  >+</button>
             </div>
             <div class="col-2">
-              <label for="IterSel">Iteración</label>
-              <ng-select [items]="Iteration" name="IterSel" #IterSel
+              <label for="IterSel">Iteraciones</label>
+              <ng-select [items]="iterations" name="IterSel" #IterSel
               bindLabel="Title"
-              bindValue="ProjectId"
-              [(ngModel)]="this.IterationSelected">
+              bindValue="IterationCode"
+              [(ngModel)]="this.iterationSelected">
               </ng-select>
             </div>
             <div class="col-1" style="margin-top: 2em;">
@@ -128,4 +127,4 @@
   </div>
 </div>
 
-<app-iteration-edit #ModalEditIteration></app-iteration-edit>
+<app-iteration-edit #ModalEditIteration (OnSaveIterationEvent)="GetIterations()" ></app-iteration-edit>

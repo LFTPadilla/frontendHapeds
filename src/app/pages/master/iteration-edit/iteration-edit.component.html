@@ -1,6 +1,7 @@
 <ng-template #ModalEdit let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Iteración</h4>
+      <h4 class="modal-title" id="modal-basic-title">{{IterationOpened.ProjectId}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -12,28 +13,32 @@
         <div class="form-row">
           <div class="col-6 col-md-8">
             <label for="etiqueta">Titulo de la Iteración</label>
-            <input type="text" class="form-control" name="IterTitle" #IterTitle required placeholder="Titulo Iteración">
+            <input type="text" class="form-control" name="IterTitle" #IterTitle required [(ngModel)]="IterationOpened.Title" placeholder="Titulo Iteración">
+          </div>
+          <div class="col-6 col-md-8">
+            <label for="etiqueta">Titulo de la Iteración</label>
+            <input type="text" class="form-control" name="IterTitle" #IterTitle required [(ngModel)]="IterationOpened.Title" placeholder="Titulo Iteración">
           </div>
           <div class="col-6 col-md-4">
             <label for="etiqueta">Esfuerzo Planeado</label>
-            <input type="number" step="0.1" class="form-control" name="IterPlannedEff" #IterPlannedEff required placeholder="0.0">
+            <input type="number" step="0.1" class="form-control" name="IterPlannedEff" #IterPlannedEff required [(ngModel)]="IterationOpened.PlannedEffort" placeholder="0.0">
           </div>
         </div>  
         <div class="form-row" style="margin-top: 10px;">
         <div class="col-6">
           <label for="etiqueta">Fecha Inicio</label>
-          <input type="date" class="form-control" name="IterStartDate" #IterStartDate required placeholder="Fecha de Inicio">
+          <input type="date" class="form-control" name="IterStartDate" #IterStartDate required [(ngModel)]="IterationOpened.StartDate" placeholder="Fecha de Inicio">
         </div>
         <div class="col-6">
           <label for="etiqueta">Fecha Fin (Estimación)</label>
-          <input type="date" class="form-control" name="IterPlannedEndDate" #IterPlannedEndDate required placeholder="Fecha estimada de finalización">
+          <input type="date" class="form-control" name="IterPlannedEndDate" #IterPlannedEndDate required [(ngModel)]="IterationOpened.PlannedEndDate" placeholder="Fecha estimada de finalización">
         </div>
     </div>
     </form>
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" >Save</button>
+    <button type="button" class="btn btn-outline-dark"  (click)="SaveIteration()">Save</button>
   </div>
 </ng-template>
 

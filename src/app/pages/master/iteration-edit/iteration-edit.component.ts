@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IterationsBusinessService } from 'src/app/business/master/iterations-business.service';
 import { Iteration } from 'src/app/model/Iteration';
 
 @Component({
@@ -11,28 +12,29 @@ export class IterationEditComponent implements OnInit {
 
   IterationOpened=new Iteration();
 
+  @Output() OnSaveIterationEvent = new EventEmitter<boolean>();
   @ViewChild( 'ModalEdit',{static: false} ) modalEdit;
-  constructor(private modalService: NgbModal,/*private requirementBussines: RequirementsBusinessService*/) { }
+  constructor(private modalService: NgbModal, private iterationBussines: IterationsBusinessService) { }
 
 
-  LaunchModal(/*req: Requirement*/) {
+  LaunchModal(projectId: string) {
     //Object.assign(this.IterationOpened,req);
-
+    this.IterationOpened.ProjectId = projectId;
     this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title', size:'xl'});
   }
-/* 
-  SaveRequirement(){
 
-    this.requirementBussines.SaveRequirement(this.IterationOpened).then(x=> {
+  SaveIteration(){
+
+    this.iterationBussines.SaveIteration(this.IterationOpened).then(x=> {
       this.modalService.dismissAll('Save');
-      this.OnSaveEvent.emit();
+      this.OnSaveIterationEvent.emit();
       console.log("Se guardo correctamente el Backlog "+x);
     }).catch(x => {
       console.log("error "+x)
     });
 
   }
- */
+
   ngOnInit(): void {
   }
 
