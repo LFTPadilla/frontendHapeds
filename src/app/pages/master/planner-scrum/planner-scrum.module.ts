@@ -5,6 +5,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IterationEditModule } from '../iteration-edit/iteration-edit.module';
 import { IterationEditComponent } from '../iteration-edit/iteration-edit.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -14,7 +15,8 @@ import { IterationEditComponent } from '../iteration-edit/iteration-edit.compone
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    DragDropModule
 
   ]
 })

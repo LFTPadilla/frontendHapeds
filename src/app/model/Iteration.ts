@@ -3,6 +3,7 @@ import { Project } from './project';
 export class Iteration {
 
     IterationCode: string;
+    ProjectId: string;
     Title: string;
     StartDate: Date;
     PlannedEndDate: Date;
