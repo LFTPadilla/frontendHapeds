@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IterationsBusinessService } from 'src/app/business/master/iterations-business.service';
 import { Iteration } from 'src/app/model/Iteration';
 
 @Component({
@@ -11,8 +12,9 @@ export class IterationEditComponent implements OnInit {
 
   IterationOpened=new Iteration();
 
+  @Output() OnSaveEvent = new EventEmitter<boolean>();
   @ViewChild( 'ModalEdit',{static: false} ) modalEdit;
-  constructor(private modalService: NgbModal,/*private requirementBussines: RequirementsBusinessService*/) { }
+  constructor(private modalService: NgbModal, private iterationBussines: IterationsBusinessService) { }
 
 
   LaunchModal(/*req: Requirement*/) {
@@ -20,10 +22,10 @@ export class IterationEditComponent implements OnInit {
 
     this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title', size:'xl'});
   }
-/* 
-  SaveRequirement(){
 
-    this.requirementBussines.SaveRequirement(this.IterationOpened).then(x=> {
+  SaveIteration(){
+
+    this.iterationBussines.SaveIteration(this.IterationOpened).then(x=> {
       this.modalService.dismissAll('Save');
       this.OnSaveEvent.emit();
       console.log("Se guardo correctamente el Backlog "+x);
@@ -32,7 +34,7 @@ export class IterationEditComponent implements OnInit {
     });
 
   }
- */
+
   ngOnInit(): void {
   }
 
