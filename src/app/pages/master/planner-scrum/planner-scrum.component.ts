@@ -10,6 +10,7 @@ import { IterationTask } from 'src/app/model/iteration-task';
 import { Iteration } from 'src/app/model/Iteration';
 import { IterationsBusinessService } from 'src/app/business/master/iterations-business.service';
 import Swal from 'sweetalert2';
+import { ProjectBusinessService } from 'src/app/business/master/project-business.service';
 
 @Component({
   selector: 'app-planner-scrum',
@@ -19,7 +20,7 @@ import Swal from 'sweetalert2';
 export class PlannerScrumComponent implements OnInit {
 
   ProjectSelected:Project = null;
-  Projects:Project[] = [ new Project("4145","title" ) ];
+  Projects:Project[] = [];
   IterationSelected:Iteration;
   iterations: Iteration[] = [];
 
@@ -28,11 +29,13 @@ export class PlannerScrumComponent implements OnInit {
 
 
   @ViewChild( 'ModalEditIteration',{static: false} ) modalEditIteration;
+  @ViewChild( 'ModalEditProject',{static: false} ) modalEditProject;
   taskTypes = IterationTaskTypes;
   agileStates = AgileStates;
 
-  constructor(private iterationBussines : IterationsBusinessService) {
+  constructor(private iterationBussines : IterationsBusinessService, private projectBussines : ProjectBusinessService) {
     this.GetIterations();
+    this.GetProjects();
    }
 
   board: Board = new Board('Semana 3 (28Jul-31Jul)', [
@@ -111,6 +114,20 @@ export class PlannerScrumComponent implements OnInit {
 
     }
   }
+
+  GetProjects(){
+    this.projectBussines.GetProjects()
+    .then(x => {
+      this.Projects = x;
+      console.log("Se cargaron correctamente los proyectos"+x);
+    }).catch(x => {
+      console.log("error en los proyectos"+x)
+    })
+  }
+  NewProject(){
+    this.modalEditProject.LaunchModal(); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
+
+    }
 
   LaunchModalTagTask() {
     console.log("Se abre el modal de targeta de tarea")

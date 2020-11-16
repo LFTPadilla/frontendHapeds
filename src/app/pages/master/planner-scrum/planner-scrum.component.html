@@ -23,7 +23,7 @@
               </ng-select>
             </div>
             <div class="col-1" style="margin-top: 2em">
-              <button type="button" class="btn btn-info btn-sm"  >+</button>
+              <button type="button" class="btn btn-info btn-sm" (click)="NewProject()">+</button>
             </div>
             <div class="col-2">
               <label for="IterSel">Iteraciones</label>
@@ -128,3 +128,4 @@
 </div>
 
 <app-iteration-edit #ModalEditIteration (OnSaveIterationEvent)="GetIterations()" ></app-iteration-edit>
+<app-project-edit #ModalEditProject (OnSaveProjectEvent)="GetProjects()" ></app-project-edit>
