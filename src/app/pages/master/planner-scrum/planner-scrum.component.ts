@@ -19,34 +19,36 @@ import { ProjectBusinessService } from 'src/app/business/master/project-business
 })
 export class PlannerScrumComponent implements OnInit {
 
-  ProjectSelected:Project = null;
-  Projects:Project[] = [];
-  IterationSelected:Iteration;
+  ProjectSelected: Project = null;
+  Projects: Project[] = [];
+  IterationSelected: Iteration;
   iterations: Iteration[] = [];
 
-  iterationTasks: IterationTask[] = [new IterationTask("code1","Tarea 1"),new IterationTask("code2","Tarea 2")];
+  iterationTasks: IterationTask[] = [new IterationTask("code1", "Tarea 1"), new IterationTask("code2", "Tarea 2")];
 
 
 
-  @ViewChild( 'ModalEditIteration',{static: false} ) modalEditIteration;
-  @ViewChild( 'ModalEditProject',{static: false} ) modalEditProject;
+  @ViewChild('ModalEditIteration', { static: false }) modalEditIteration;
+  @ViewChild('ModalEditProject', { static: false }) modalEditProject;
+  @ViewChild('ModalEditTask', { static: false }) modalEditTask;
+
   taskTypes = IterationTaskTypes;
   agileStates = AgileStates;
 
-  constructor(private iterationBussines : IterationsBusinessService, private projectBussines : ProjectBusinessService) {
+  constructor(private iterationBussines: IterationsBusinessService, private projectBussines: ProjectBusinessService) {
     this.GetIterations();
     this.GetProjects();
-   }
+  }
 
   board: Board = new Board('Semana 3 (28Jul-31Jul)', [
     new Column('PLANEADO', [
-      new PlanningEntryPlanner("1","WEB600 Formulario Envi",this.taskTypes.Develop,1,this.agileStates.Planned),
-      new PlanningEntryPlanner("2","WEB601 Form recibir ma",this.taskTypes.Develop,1,this.agileStates.Planned),
-      new PlanningEntryPlanner("3","WEB601 Form gestión",this.taskTypes.Develop,1,this.agileStates.Planned)
+      new PlanningEntryPlanner("1", "WEB600 Formulario Envi", this.taskTypes.Develop, 1, this.agileStates.Planned),
+      new PlanningEntryPlanner("2", "WEB601 Form recibir ma", this.taskTypes.Develop, 1, this.agileStates.Planned),
+      new PlanningEntryPlanner("3", "WEB601 Form gestión", this.taskTypes.Develop, 1, this.agileStates.Planned)
     ]),
     new Column('EN PROGRESO', [
-      new PlanningEntryPlanner("4","WEB410 Cambio Form Be",this.taskTypes.Develop,1,this.agileStates.InProgress),
-      new PlanningEntryPlanner("5","WEB430 Cambio Traslad",this.taskTypes.Develop,1,this.agileStates.InProgress)
+      new PlanningEntryPlanner("4", "WEB410 Cambio Form Be", this.taskTypes.Develop, 1, this.agileStates.InProgress),
+      new PlanningEntryPlanner("5", "WEB430 Cambio Traslad", this.taskTypes.Develop, 1, this.agileStates.InProgress)
     ]),
     new Column('EN REVISIÓN', [
     ]),
@@ -66,45 +68,45 @@ export class PlannerScrumComponent implements OnInit {
     }
   }
 
-  AddTasktoWeek(task: IterationTask){
-    let planning = new PlanningEntryPlanner(task.Code, task.Title,task.TaskType,task.PlannedEffort,this.agileStates.Planned)
+  AddTasktoWeek(task: IterationTask) {
+    let planning = new PlanningEntryPlanner(task.Code, task.Title, task.TaskType, task.PlannedEffort, this.agileStates.Planned)
     this.PutNewPlanningInBoard(planning);
   }
 
-  PutNewPlanningInBoard(planning: PlanningEntryPlanner){
+  PutNewPlanningInBoard(planning: PlanningEntryPlanner) {
     let exist = false;
-    this.board.columns.forEach(row =>{
-      row.tasks.forEach(task =>{
-        console.log(task.Code == planning.Code,task.Code, planning.Code)
-        if(task.Code == planning.Code){
+    this.board.columns.forEach(row => {
+      row.tasks.forEach(task => {
+        console.log(task.Code == planning.Code, task.Code, planning.Code)
+        if (task.Code == planning.Code) {
           exist = true
         }
       });
     });
-    if(!exist){
+    if (!exist) {
       this.board.columns[planning.State].tasks.push(planning);
-    }else{
+    } else {
       Swal.fire('Error', "No puede crear dos tareas iguales en la misma semana.", 'error');
     }
 
   }
 
-  GetIterations(){
+  GetIterations() {
     this.iterationBussines.GetIterations()
-    .then(x => {
-      this.iterations = x;
-      console.log("Se cargaron correctamente las iteraciones"+x);
-    }).catch(x => {
-      console.log("error en las iteraciones"+x)
-    })
+      .then(x => {
+        this.iterations = x;
+        console.log("Se cargaron correctamente las iteraciones" + x);
+      }).catch(x => {
+        console.log("error en las iteraciones" + x)
+      })
   }
-  NewIteration(){
-    console.log("Project"+this.ProjectSelected != null)//null != null True
-    console.log("Project"+this.ProjectSelected)
-    if (this.ProjectSelected != null){
+  NewIteration() {
+    console.log("Project" + this.ProjectSelected != null)//null != null True
+    console.log("Project" + this.ProjectSelected)
+    if (this.ProjectSelected != null) {
       this.modalEditIteration.LaunchModal(this.ProjectSelected.ProjectId); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
 
-    }else{
+    } else {
       Swal.fire({
         title: 'Advertencia',
         text: 'Por favor seleccione un proyecto',
@@ -115,19 +117,34 @@ export class PlannerScrumComponent implements OnInit {
     }
   }
 
-  GetProjects(){
+  GetProjects() {
     this.projectBussines.GetProjects()
-    .then(x => {
-      this.Projects = x;
-      console.log("Se cargaron correctamente los proyectos"+x);
-    }).catch(x => {
-      console.log("error en los proyectos"+x)
-    })
+      .then(x => {
+        this.Projects = x;
+        console.log("Se cargaron correctamente los proyectos" + x);
+      }).catch(x => {
+        console.log("error en los proyectos" + x)
+      })
   }
-  NewProject(){
+  NewProject() {
     this.modalEditProject.LaunchModal(); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
 
+  }
+
+  NewTask() {
+    if (this.ProjectSelected != null && this.IterationSelected != null) {
+      this.modalEditTask.LaunchModal(this.ProjectSelected.ProjectId, this.IterationSelected.IterationCode);
+
+    } else {
+      Swal.fire({
+        title: 'Advertencia',
+        text: 'Por favor seleccione un proyecto y una iteración',
+        icon: 'warning',
+        confirmButtonText: 'Cerrar'
+      });
+
     }
+  }
 
   LaunchModalTagTask() {
     console.log("Se abre el modal de targeta de tarea")

@@ -1,48 +1,56 @@
 <ng-template #ModalEdit let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Proyecto</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-  
-      <form #rejectForm="ngForm">
-  
-        <div class="form-row">
-          <div class="col-4 col-md-4">
-            <label for="etiqueta">Id del Proyecto</label>
-            <input type="text" class="form-control" name="ProyId" #ProyId required [(ngModel)]="ProjectOpened.ProjectId" placeholder="Id del Proyecto">
-          </div>
-          <div class="col-4 col-md-4">
-            <label for="etiqueta">Titulo del Proyecto</label>
-            <input type="text" class="form-control" name="ProyTitle" #ProyTitle required [(ngModel)]="ProjectOpened.Title" placeholder="Titulo Proyecto">
-          </div>
-          <div class="col-4 col-md-4">
-            <label for="etiqueta">Descripción</label>
-            <input type="text" step="0.1" class="form-control" name="ProyDesc" #ProyDesc required [(ngModel)]="ProjectOpened.Description" placeholder="Descripción del proyecto">
-          </div>
-        </div>  
-        <div class="form-row" style="margin-top: 10px;">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Proyecto</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form #rejectForm="ngForm">
+
+      <div class="form-row">
+        <div class="col-4 col-md-4">
+          <label for="etiqueta">Id del Proyecto</label>
+          <input type="text" class="form-control" name="ProyId" #ProyId required [(ngModel)]="ProjectOpened.ProjectId"
+            placeholder="Id del Proyecto">
+        </div>
+        <div class="col-4 col-md-4">
+          <label for="etiqueta">Titulo del Proyecto</label>
+          <input type="text" class="form-control" name="ProyTitle" #ProyTitle required [(ngModel)]="ProjectOpened.Title"
+            placeholder="Titulo Proyecto">
+        </div>
+        <div class="col-4 col-md-4">
+          <label for="etiqueta">Descripción</label>
+          <input type="text" step="0.1" class="form-control" name="ProyDesc" #ProyDesc required
+            [(ngModel)]="ProjectOpened.Description" placeholder="Descripción del proyecto">
+        </div>
+      </div>
+      <div class="form-row" style="margin-top: 10px;">
         <div class="col-6">
           <label for="etiqueta">Fecha Inicio</label>
-          <input type="date" class="form-control" name="ProyStartDate" #ProyStartDate required [(ngModel)]="ProjectOpened.StartDate" placeholder="Fecha de Inicio">
+          <input type="date" class="form-control" name="ProyStartDate" #ProyStartDate required
+            [(ngModel)]="ProjectOpened.StartDate" placeholder="Fecha de Inicio">
         </div>
         <div class="col-6">
           <label for="etiqueta">Fecha Fin</label>
-          <input type="date" class="form-control" name="ProyEndDate" #ProyEndDate required [(ngModel)]="ProjectOpened.EndDate" placeholder="Fecha de finalización">
+          <input type="date" class="form-control" name="ProyEndDate" #ProyEndDate required
+            [(ngModel)]="ProjectOpened.EndDate" placeholder="Fecha de finalización">
         </div>
-        <div class="col-6">
+        <div class="form-row" style="margin-top: 10px;">
+          <div class="col-6">
             <span class="badge badge-dot mr-4">
-                <i class="bg-success"></i> {{ProjectOpened.Active?'Si':'No'}}
+              <i class="bg-success"></i> {{ProjectOpened.Active?'Si':'No'}}
             </span>
             <label for="etiqueta">Estado</label>
             <select name="ProyActive" #ProyActive [(ngModel)]="ProjectOpened.Active">
-                <option value="true">Activo</option>
-                <option value="false">Inactivo</option>
+              <option value="true">Activo</option>
+              <option value="false">Inactivo</option>
             </select>
+          </div>
         </div>
-    </div>
+
+      </div>
     </form>
 
   </div>
@@ -50,4 +58,3 @@
     <button type="button" class="btn btn-outline-dark" (click)="SaveProject()">Save</button>
   </div>
 </ng-template>
-
