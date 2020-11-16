@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { PlanningPeriod } from 'src/app/model/planning-period';
 
+import { ProjectBusinessService } from 'src/app/business/master/project-business.service';
 
 @Component({
   selector: 'app-planner-scrum',
@@ -29,17 +30,17 @@ export class PlannerScrumComponent implements OnInit {
   Iterations: Iteration[] = [];
   IterationBoards: Board[] = [];
 
+  @ViewChild('ModalEditIteration', { static: false }) modalEditIteration;
+  @ViewChild('ModalEditProject', { static: false }) modalEditProject;
+  @ViewChild('ModalEditTask', { static: false }) modalEditTask;
 
-
-
-  @ViewChild( 'ModalEditIteration',{static: false} ) modalEditIteration;
   taskTypes = IterationTaskTypes;
   agileStates = AgileStates;
 
   boardSelected: Board = new Board('Loading',new Date(),new Date(),[new Column('LOADING', [])]);
   WeekPosition: number = 0;
 
-  constructor(private iterationBussines : IterationsBusinessService) {
+  constructor(private iterationBussines : IterationsBusinessService, private projectBussines: ProjectBusinessService) {
     moment.locale('es');
     let it1 = new IterationTask("code1","Tarea 1");
     let p1 = new PlanningEntry()
@@ -74,7 +75,8 @@ export class PlannerScrumComponent implements OnInit {
 
 
     this.GetIterations();
-   }
+    this.GetProjects();
+  }
 
    LoadBoards(){
 
@@ -135,12 +137,12 @@ export class PlannerScrumComponent implements OnInit {
     }
   }
 
-  AddTasktoWeek(task: IterationTask){
-    let planning = new PlanningEntryPlanner(task.Code, task.Title,task.TaskType,task.PlannedEffort,this.agileStates.Planned)
+  AddTasktoWeek(task: IterationTask) {
+    let planning = new PlanningEntryPlanner(task.Code, task.Title, task.TaskType, task.PlannedEffort, this.agileStates.Planned)
     this.PutNewPlanningInBoard(planning);
   }
 
-  PutNewPlanningInBoard(planning: PlanningEntryPlanner){
+  PutNewPlanningInBoard(planning: PlanningEntryPlanner) {
     let exist = false;
     this.boardSelected.columns.forEach(row =>{
       row.tasks.forEach(task =>{
@@ -158,7 +160,7 @@ export class PlannerScrumComponent implements OnInit {
 
   }
 
-  GetIterations(){
+  GetIterations() {
     this.iterationBussines.GetIterations()
     .then(x => {
       this.Iterations = x;
@@ -173,10 +175,39 @@ export class PlannerScrumComponent implements OnInit {
     if (this.ProjectSelected != null){
       this.modalEditIteration.LaunchModal(this.ProjectSelected.ProjectId); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html JAJAJAJAJAJA
 
-    }else{
+    } else {
       Swal.fire({
         title: 'Advertencia',
         text: 'Por favor seleccione un proyecto',
+        icon: 'warning',
+        confirmButtonText: 'Cerrar'
+      });
+
+    }
+  }
+
+  GetProjects() {
+    this.projectBussines.GetProjects()
+      .then(x => {
+        this.Projects = x;
+        console.log("Se cargaron correctamente los proyectos" + x);
+      }).catch(x => {
+        console.log("error en los proyectos" + x)
+      })
+  }
+  NewProject() {
+    this.modalEditProject.LaunchModal(); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
+
+  }
+
+  NewTask() {
+    if (this.ProjectSelected != null && this.IterationSelected != null) {
+      this.modalEditTask.LaunchModal(this.ProjectSelected.ProjectId, this.IterationSelected.IterationCode);
+
+    } else {
+      Swal.fire({
+        title: 'Advertencia',
+        text: 'Por favor seleccione un proyecto y una iteración',
         icon: 'warning',
         confirmButtonText: 'Cerrar'
       });

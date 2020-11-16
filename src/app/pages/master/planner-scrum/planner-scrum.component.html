@@ -23,13 +23,12 @@
               </ng-select>
             </div>
             <div class="col-1" style="margin-top: 2em">
-              <button type="button" class="btn btn-info btn-sm"  >+</button>
+              <button type="button" class="btn btn-info btn-sm" (click)="NewProject()">+</button>
             </div>
             <div class="col-2">
               <label for="IterSel">Iteraciones</label>
               <ng-select [items]="Iterations" name="IterSel" #IterSel
-              bindLabel="Title"
-              bindValue="IterationCode"
+              bindLabel="IterationCode"
               [(ngModel)]="this.IterationSelected">
               </ng-select>
             </div>
@@ -49,7 +48,7 @@
                 <div class="card-header">
 
                   <h2 style="display:inline-block">Tareas</h2>
-                  <button type="button" style="float:right" class="btn btn-info btn-sm" >+</button>
+                  <button type="button" style="float:right" class="btn btn-info btn-sm" (click)="NewTask()">+</button>
                 </div>
 
                 <!-- Listado -->
@@ -126,3 +125,5 @@
 </div>
 
 <app-iteration-edit #ModalEditIteration (OnSaveIterationEvent)="GetIterations()" ></app-iteration-edit>
+<app-project-edit #ModalEditProject (OnSaveProjectEvent)="GetProjects()" ></app-project-edit>
+<app-task-edit #ModalEditTask ></app-task-edit>

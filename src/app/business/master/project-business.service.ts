@@ -12,7 +12,7 @@ export class ProjectBusinessService {
 
 
   public GetProjects(): Promise<Project[]> {
-    let serviceObj = new ServiceObject("ProjectService", 'Project', 'list-projects');
+    let serviceObj = new ServiceObject("ProjectService", 'Project', 'GetProjects');
   
     return this.apiGatewayService.PostAction(serviceObj)
       .then(x => {
@@ -26,6 +26,24 @@ export class ProjectBusinessService {
       })
       .catch(x => {
         throw x
+      });
+  }
+
+  public SaveProject(project: Project): Promise<number> {
+
+    let serviceObject = new ServiceObject('Hapeds', 'Projects', 'SaveProject');
+    serviceObject.Data = { project };
+
+    return this.apiGatewayService.PostAction(serviceObject)
+      .then(x => {
+       /*  serviceObject = x as ServiceObject;
+        if (!serviceObject.Success) {
+          throw new Error(serviceObject.Message);
+        } */
+        return x.Data;
+      })
+      .catch(x => {
+        throw x.message;
       });
   }
 
