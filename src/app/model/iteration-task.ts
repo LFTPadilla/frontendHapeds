@@ -1,5 +1,7 @@
 import { AgileStates } from './agile-states.enum';
 import { IterationTaskTypes } from './iteration-task-types.enum';
+import { PlanningEntry } from './planning-entry';
+import { PlanningEntryPlanner } from './planning-entry-planner';
 
 export class IterationTask {
 
@@ -12,7 +14,8 @@ export class IterationTask {
   State: AgileStates;
   Creation: string;
   Edition: string;
+  Planning: PlanningEntry[];
 
-  constructor(public Code: string,public Title: string){}
+  constructor(public Code: string,public Title: string) {}
 
 }

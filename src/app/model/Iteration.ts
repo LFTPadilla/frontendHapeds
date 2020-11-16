@@ -1,3 +1,4 @@
+import { IterationTask } from './iteration-task';
 import { Project } from './project';
 
 export class Iteration {
@@ -11,4 +12,5 @@ export class Iteration {
     PlannedEffort: number;
     RealEffort: number;
     Progress: number;
+    Tasks: IterationTask[] = [];
 }
