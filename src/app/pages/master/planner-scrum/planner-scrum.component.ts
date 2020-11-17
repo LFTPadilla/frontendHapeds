@@ -15,6 +15,7 @@ import * as moment from 'moment';
 import { PlanningPeriod } from 'src/app/model/planning-period';
 
 import { ProjectBusinessService } from 'src/app/business/master/project-business.service';
+import { TasksBusinessService } from 'src/app/business/master/tasks-business.service';
 
 @Component({
   selector: 'app-planner-scrum',
@@ -33,14 +34,16 @@ export class PlannerScrumComponent implements OnInit {
   @ViewChild('ModalEditIteration', { static: false }) modalEditIteration;
   @ViewChild('ModalEditProject', { static: false }) modalEditProject;
   @ViewChild('ModalEditTask', { static: false }) modalEditTask;
+  @ViewChild('ModalEditPlanningEntry', {static:false}) modalEditPlanningEntry;
 
   taskTypes = IterationTaskTypes;
   agileStates = AgileStates;
+  tasksInfo = "";
 
   boardSelected: Board = new Board('Loading',new Date(),new Date(),[new Column('LOADING', [])]);
   WeekPosition: number = 0;
 
-  constructor(private iterationBussines : IterationsBusinessService, private projectBussines: ProjectBusinessService) {
+  constructor(private iterationBussines : IterationsBusinessService, private projectBussines: ProjectBusinessService, private taskBussines: TasksBusinessService) {
     moment.locale('es');
     let it1 = new IterationTask("code1","Tarea 1");
     let p1 = new PlanningEntry()
@@ -73,8 +76,6 @@ export class PlannerScrumComponent implements OnInit {
     this.LoadBoards();
     this.boardSelected = this.IterationBoards[this.WeekPosition];
 
-
-    this.GetIterations();
     this.GetProjects();
   }
 
@@ -116,7 +117,7 @@ export class PlannerScrumComponent implements OnInit {
           console.log(planningBoard.name,planningBoard.startDate,planningBoard.startDate.getDate()< planning.Period.StartDate.getDate(),planningBoard.endDate.getDate()> planning.Period.StartDate.getDate());
           if(planningBoard.startDate.getDate()< planning.Period.StartDate.getDate() && planningBoard.endDate.getDate()> planning.Period.StartDate.getDate()){
 
-            let planningP = new PlanningEntryPlanner(iterTasks.Code,iterTasks.Title,iterTasks.TaskType,planning.PlannedEffort,planning.State);
+            let planningP = new PlanningEntryPlanner(iterTasks.IterationTaskCode,iterTasks.Title,iterTasks.TaskType,planning.PlannedEffort,planning.State);
             planningBoard.columns[0].tasks.push(planningP);
           }
         })
@@ -145,7 +146,7 @@ export class PlannerScrumComponent implements OnInit {
   }
 
   AddTasktoWeek(task: IterationTask) {
-    let planning = new PlanningEntryPlanner(task.Code, task.Title, task.TaskType, task.PlannedEffort, this.agileStates.Planned)
+    let planning = new PlanningEntryPlanner(task.IterationTaskCode, task.Title, task.TaskType, task.PlannedEffort, this.agileStates.Planned)
     this.PutNewPlanningInBoard(planning);
   }
 
@@ -168,7 +169,10 @@ export class PlannerScrumComponent implements OnInit {
   }
 
   GetIterations() {
-    this.iterationBussines.GetIterations()
+    if(this.ProjectSelected == null){
+      return;
+    }
+    this.iterationBussines.GetIterations(this.ProjectSelected.ProjectId)
     .then(x => {
       this.Iterations = x;
       console.log("Se cargaron correctamente las iteraciones"+x);
@@ -220,6 +224,29 @@ export class PlannerScrumComponent implements OnInit {
       });
 
     }
+  }
+
+  GetTasks() {
+    console.log("SALEE:"+this.IterationSelected);
+    if (this.IterationSelected == null){
+      this.tasksInfo= "No hay Tareas para mostrar";
+      this.IterationSelected.Tasks = [];
+      return;
+    }
+    console.log("LA Iteración es la "+this.IterationSelected.IterationCode);
+    console.log("Y el proyecto es: "+this.IterationSelected.ProjectId);
+
+    this.taskBussines.GetTasks(this.IterationSelected.ProjectId, this.IterationSelected.IterationCode)
+    .then(x => {
+      this.IterationSelected.Tasks = x;
+      console.log("Se cargaron correctamente las iteraciones"+x);
+    }).catch(x => {
+      console.log("error en las iteraciones"+x)
+    })
+  }
+
+  EditPlanningEntry(){
+    this.modalEditPlanningEntry.LaunchModal();
   }
 
   LaunchModalTagTask() {

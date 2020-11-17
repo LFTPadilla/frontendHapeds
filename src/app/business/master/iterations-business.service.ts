@@ -11,9 +11,9 @@ export class IterationsBusinessService {
   constructor(private apiGatewayService: ApiGatewayService) { }
 
 
-  public GetIterations(): Promise<Iteration[]> {
+  public GetIterations(projectId: string): Promise<Iteration[]> {
     let serviceObj = new ServiceObject("Hapeds", 'Iterations', 'GetIterations');
-    //serviceObj.Data = { projectId }
+    serviceObj.Data = { projectId }
     return this.apiGatewayService.PostAction(serviceObj)
       .then(x => {
         const iterations = x as Iteration[];

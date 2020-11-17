@@ -1,8 +1,8 @@
 <ng-template #ModalEdit let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Tarea</h4>
-        <h4 class="modal-title" id="modal-basic-title"> {{TaskOpened.ProjectId}}</h4>
-        <h4 class="modal-title" id="modal-basic-title"> {{TaskOpened.IterationCode}}</h4>
+        <h4 class="modal-title" id="modal-basic-title"> {{PlanningEntryOpened}}</h4>
+        <h4 class="modal-title" id="modal-basic-title"> {{PlanningEntryOpened}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="CloseModal(TaskForm)">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -16,36 +16,26 @@
                 <div class="col-4">
                     <label for="TaskTitle">Código *</label>
                     <input type="text" class="form-control" name="IterTaskcode" #IterTaskcode required
-                        [(ngModel)]="TaskOpened.IterationTaskCode" >
+                        [(ngModel)]="PlanningEntryOpened" >
                 </div>
                 <div class="col-4">
                     <label for="TaskTitle">Titulo *</label>
                     <input type="text" class="form-control" name="IterTaskTitle" #IterTaskTitle required
-                        [(ngModel)]="TaskOpened.Title">
+                        [(ngModel)]="PlanningEntryOpened">
                 </div>
-                <div class="col-4">
-                    <label for="ReqSel">Requerimiento Asociado</label>
-                    <ng-select [items]="Requirements" name="ReqSel" #ReqSel bindLabel="Title"
-                        [(ngModel)]="RequirementSelected">
-                    </ng-select>
-                </div>
+              
             </div>
             <div class="form-row">
-                <div class="col-4">
-                    <label for="ProjSel">Tipo</label>
-                    <ng-select [items]="this.TaskTypes" name="IterTaskType" #IterTaskType bindLabel="Value" bindValue="Key" [(ngModel)]="TaskOpened.TaskType">
-                    </ng-select>
-                </div>
 
                 <div class="col-4 col-md-4">
                     <label for="etiqueta">Esfuerzo</label>
                     <input type="number" step="0.1" class="form-control" name="IterTaskPlannedEff" #IterTaskPlannedEff
-                        required [(ngModel)]="TaskOpened.PlannedEffort" placeholder="0.0">
+                        required [(ngModel)]="PlanningEntryOpened" placeholder="0.0">
                 </div>
                 <div class="col-4 col-md-4">
                     <label for="etiqueta">Horas</label>
                     <input type="number"  class="form-control" name="IterTaskPlannedHours"
-                        #IterTaskPlannedHours required [(ngModel)]="TaskOpened.PlannedHours" placeholder="0">
+                        #IterTaskPlannedHours required [(ngModel)]="PlanningEntryOpened" placeholder="0">
                 </div>
             </div>
             <div class="form-group"
@@ -56,18 +46,14 @@
                     <div class="col-3 col-md-6">
                         <label for="etiqueta">Titulo</label>
                         <input type="text" class="form-control" name="TaskProxyTitle" #TaskProxyTitle required
-                            [(ngModel)]="TaskProxyOpened.Title" >
+                            [(ngModel)]="PlanningEntryOpened" >
                     </div>
 
-                    <div class="col-3 col-md-3">
-                        <label for="etiqueta">Tipo</label>
-                        <ng-select [items]="this.TaskTypes" name="TaskProxyType" #TaskProxyType bindlabel="Value" bindValue="key" [(ngModel)]="TaskProxyOpened.Type">
-                        </ng-select>    
-                    </div>
+                
                     <div class="col-6 col-md-3">
                         <label for="etiqueta">Esfuerzo Promedio</label>
                         <input type="number" step="0.1" class="form-control" name="TaskProxyEffort" #TaskProxyEffort
-                            required [(ngModel)]="TaskProxyOpened.EffortAvg" placeholder="0.0">
+                            required [(ngModel)]="PlanningEntryOpened" placeholder="0.0">
                     </div>
                 </div>
             </div>
