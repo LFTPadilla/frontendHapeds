@@ -3,24 +3,25 @@
         <h4 class="modal-title" id="modal-basic-title">Tarea</h4>
         <h4 class="modal-title" id="modal-basic-title"> {{TaskOpened.ProjectId}}</h4>
         <h4 class="modal-title" id="modal-basic-title"> {{TaskOpened.IterationCode}}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="CloseModal()">
+        <button type="button" class="close" aria-label="Close" (click)="CloseModal(TaskForm)">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body" *ngIf="TaskOpened">
 
-        <form #TaskForm="ngForm" >
+    <div class="modal-body"  >
 
+
+      <form #TaskForm="ngForm">
             <div class="form-row">
                 <div class="col-4">
                     <label for="TaskTitle">Código *</label>
                     <input type="text" class="form-control" name="IterTaskcode" #IterTaskcode required
-                        [(ngModel)]="TaskOpened.Code" placeholder="Titulo de la Tarea">
+                        [(ngModel)]="TaskOpened.Code" >
                 </div>
                 <div class="col-4">
                     <label for="TaskTitle">Titulo *</label>
                     <input type="text" class="form-control" name="IterTaskTitle" #IterTaskTitle required
-                        [(ngModel)]="TaskOpened.Title" placeholder="Titulo de la Tarea">
+                        [(ngModel)]="TaskOpened.Title">
                 </div>
                 <div class="col-4">
                     <label for="ReqSel">Requerimiento Asociado</label>
@@ -32,8 +33,7 @@
             <div class="form-row">
                 <div class="col-4">
                     <label for="ProjSel">Tipo</label>
-                    <ng-select [items]="" name="IterTaskType" #IterTaskType bindLabel="Title">
-                        <!-- [(ngModel)]="">-->
+                    <ng-select [items]="this.TaskTypes" name="IterTaskType" #IterTaskType bindLabel="Value" bindValue="Key" [(ngModel)]="TaskOpened.TaskType">
                     </ng-select>
                 </div>
 
@@ -56,13 +56,13 @@
                     <div class="col-6">
                         <label for="etiqueta">Titulo</label>
                         <input type="text" class="form-control" name="TaskProxyTitle" #TaskProxyTitle required
-                            [(ngModel)]="TaskProxyOpened.Title" placeholder="Titulo del proxy">
+                            [(ngModel)]="TaskProxyOpened.Title" >
                     </div>
 
                     <div class="col-6">
                         <label for="etiqueta">Tipo</label>
                         <input type="text" class="form-control" name="TaskProxyType" #TaskProxyType required
-                            [(ngModel)]="TaskProxyOpened.Type" placeholder="Tipo de proxy">
+                            [(ngModel)]="TaskProxyOpened.Type" >
                     </div>
                     <div class="col-6">
                         <label for="etiqueta">Esfuerzo Promedio</label>
@@ -71,10 +71,11 @@
                     </div>
                 </div>
             </div>
-        </form>
+          </form>
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="SaveTask()">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="SaveTask(TaskForm)">Guardar</button>
     </div>
+
 </ng-template>

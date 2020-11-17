@@ -57,18 +57,18 @@ export class PlannerScrumComponent implements OnInit {
     let p3 = new PlanningEntry()
     p3.State = this.agileStates.InReview;
     p3.PlannedHours = 29;
-    p3.Period = new PlanningPeriod(1,"Periodo ",new Date("01/29/2020"),new Date("01/24/2020"));
+    p3.Period = new PlanningPeriod(1,"Periodo ",new Date("01/09/2020"),new Date("01/24/2020"));
     let p4 = new PlanningEntry()
     p4.State = this.agileStates.Done;
     p4.PlannedHours = 66;
-    p4.Period = new PlanningPeriod(1,"Periodo ",new Date("01/26/2020"),new Date("01/12/2020"));
+    p4.Period = new PlanningPeriod(1,"Periodo ",new Date("01/18/2020"),new Date("01/12/2020"));
     it2.Planning = [p3,p4];
 
 
     this.IterationSelected.Tasks.push(it1);
     this.IterationSelected.Tasks.push(it2);
     this.IterationSelected.StartDate = new Date("01/08/2020");
-    this.IterationSelected.PlannedEndDate = new Date("02/12/2020");
+    this.IterationSelected.PlannedEndDate = new Date("02/10/2020");
 
     this.LoadBoards();
     this.boardSelected = this.IterationBoards[this.WeekPosition];
@@ -87,10 +87,17 @@ export class PlannerScrumComponent implements OnInit {
 
     for (var i=1; i <= Weeks;i++){
       let StartWeek = new Date(this.IterationSelected.StartDate);
+      /*
+        Inicio de semana es a la fecha de inicio de iteración más la semana posicion de la semana
+      */
       StartWeek.setDate(this.IterationSelected.StartDate.getDate() + (i-1)*7+(i!=1?1:0));
-      let EndWeek = new Date(this.IterationSelected.StartDate);
 
-      EndWeek.setDate(StartWeek.getDate()+ (i-1)*7+ (i==Weeks?Days-(i-1)*7:7));
+      /*
+      Fin de la semana es el inicio de la semana más 7 días, excepto la utlima semana que son los días sobrantes
+      */
+      let EndWeek = new Date(StartWeek.getDate());
+      console.log(i,Weeks,Days,(i-1)*7,Days-(i-1)*7, i==Weeks?Days-(i-1)*7:7)
+      EndWeek.setDate(StartWeek.getDate()+ (i==Weeks?Days-(i-1)*7:7));
 
 
       let board = new Board("Semana "+i+" ( "+moment(StartWeek).format("Do MMM")+" - "+moment(EndWeek).format("Do MMM")+")",StartWeek, EndWeek, [

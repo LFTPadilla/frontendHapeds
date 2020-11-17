@@ -19,7 +19,7 @@
               <label for="ProjSel">Proyecto</label>
               <ng-select [items]="Projects" name="ProjSel" #ProjSel
               bindLabel="Title"
-              [(ngModel)]="this.ProjectSelected">
+              [(ngModel)]="this.ProjectSelected" (change)="GetIterations()">
               </ng-select>
             </div>
             <div class="col-1" style="margin-top: 2em">
