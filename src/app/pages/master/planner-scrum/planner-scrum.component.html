@@ -48,7 +48,7 @@
                   <h2 style="display:inline-block">Tareas</h2>
                   <button type="button" style="float:right" class="btn btn-info btn-sm" (click)="NewTask()">+</button>
                 </div>
-                <h3 style="margin: 25px;">{{tasksInfo}}</h3>
+                <h3 style="margin: 25px;" *ngIf="!IterationSelected.Tasks">{{tasksInfo}}</h3>
                 <!-- Listado -->
                 <div class="row taskRow" *ngFor="let task of IterationSelected.Tasks">
                   <div class="col-8">{{task.IterationTaskCode}}</div>
