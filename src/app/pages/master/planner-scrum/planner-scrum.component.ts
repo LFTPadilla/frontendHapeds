@@ -16,6 +16,7 @@ import { PlanningPeriod } from 'src/app/model/planning-period';
 
 import { ProjectBusinessService } from 'src/app/business/master/project-business.service';
 import { TasksBusinessService } from 'src/app/business/master/tasks-business.service';
+import { KeyValuePair } from 'src/app/model/key-value-pair';
 
 @Component({
   selector: 'app-planner-scrum',
@@ -42,6 +43,8 @@ export class PlannerScrumComponent implements OnInit {
 
   boardSelected: Board = new Board('Loading',new Date(),new Date(),[new Column('LOADING', [])]);
   WeekPosition: number = 0;
+
+  TaskTypes: KeyValuePair[] = [ { "Key": 1,"Value": "Diseño" },{ "Key": 2,"Value": "Requerimientos" },{ "Key": 3,"Value": "Desarrollo" },{ "Key": 4,"Value": "Pruebas" },{ "Key": 5,"Value": "Despliegue" },{ "Key": 6,"Value": "Administración" },{ "Key": 7,"Value": "Arreglo de errores" } ];
 
   constructor(private iterationBussines : IterationsBusinessService, private projectBussines: ProjectBusinessService, private taskBussines: TasksBusinessService) {
     moment.locale('es');
@@ -179,10 +182,19 @@ export class PlannerScrumComponent implements OnInit {
       });
     });
     if(!exist){
-      this.boardSelected.columns[planning.State].tasks.push(planning);
+      console.log(planning.State)
+      this.boardSelected.columns[planning.State-7].tasks.push(planning);
     }else{
       Swal.fire('Error', "No puede crear dos tareas iguales en la misma semana.", 'error');
     }
+  }
+
+  GetTypeTask(type){
+    console.log(type,typeof(type));
+    let r = this.TaskTypes.filter(x=>{
+      return x.Key == type;
+    });
+    return r.length>0?r[0].Value:'Desarrollador';
 
   }
 
@@ -248,6 +260,7 @@ export class PlannerScrumComponent implements OnInit {
     console.log("SALEE:"+this.IterationSelected);
     if (this.IterationSelected == null){
       this.tasksInfo= "No hay Tareas para mostrar";
+      this.IterationSelected = new Iteration();
       this.IterationSelected.Tasks = [];
       return;
     }
