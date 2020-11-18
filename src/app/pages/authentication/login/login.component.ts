@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
     } catch (error) {
       form.reset();
-      //console.log('Autenticación Fallida'+error);
+      ////console.log('Autenticación Fallida'+error);
       Swal.fire('Autenticación Fallida', error.message, 'error');
     }
     this.onAction = false;

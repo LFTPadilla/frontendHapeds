@@ -28,7 +28,7 @@ var AppEnviroment = /** @class */ (function () {
         var jsonFile = "assets/config.json";
         return new Promise(function (resolve, reject) {
             httpClient.get(jsonFile).toPromise().then(function (response) {
-                console.log("Resolvio bien" + response);
+                //console.log("Resolvio bien" + response);
                 var result = response;
                 AppEnviroment.ApiEndPoint = result.ApiEndPoint;
                 resolve();

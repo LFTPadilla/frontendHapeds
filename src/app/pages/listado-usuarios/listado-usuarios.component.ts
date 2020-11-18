@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListadoUsuariosComponent implements OnInit {
 
-  constructor() { 
-    console.log("Inicie");
+  constructor() {
+    //console.log("Inicie");
   }
 
   ngOnInit(): void {

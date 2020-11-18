@@ -82,12 +82,12 @@ export class PlannerScrumComponent implements OnInit {
     this.GetProjects();
   }
 
-   LoadBoards(){
+  LoadBoards(){
 
     let Days = (this.IterationSelected.PlannedEndDate.getTime() -this.IterationSelected.StartDate.getTime() )/(1000*60*60*24);
 
     let Weeks =  Math.ceil(Days/7);
-    console.log("Semanas",Weeks)
+    //console.log("Semanas",Weeks)
 
     for (var i=1; i <= Weeks;i++){
       let StartWeek = new Date(this.IterationSelected.StartDate);
@@ -100,7 +100,7 @@ export class PlannerScrumComponent implements OnInit {
       Fin de la semana es el inicio de la semana más 7 días, excepto la utlima semana que son los días sobrantes
       */
       let EndWeek = new Date(StartWeek);
-      console.log(i,Weeks,Days,(i-1)*7,Days-(i-1)*7, i==Weeks?Days-(i-1)*7:7)
+      //console.log(i,Weeks,Days,(i-1)*7,Days-(i-1)*7, i==Weeks?Days-(i-1)*7:7)
       EndWeek.setDate(StartWeek.getDate()+ (i==Weeks?Days-(i-1)*7:7));
 
 
@@ -117,9 +117,9 @@ export class PlannerScrumComponent implements OnInit {
       iterTasks.Planning.forEach(planning =>{
         planning.Period.StartDate.getTime()
         this.IterationBoards.forEach((planningBoard,index)=>{
-          if (index == this.IterationBoards.length-1){
-            console.log(planningBoard.name,moment(planningBoard.startDate).format("MMM Do YY") , moment(planning.Period.EndDate).format("MMM Do YY"),moment(planningBoard.endDate).format("MMM Do YY"));
-          }
+          /* if (index == this.IterationBoards.length-1){
+            //console.log(planningBoard.name,moment(planningBoard.startDate).format("MMM Do YY") , moment(planning.Period.EndDate).format("MMM Do YY"),moment(planningBoard.endDate).format("MMM Do YY"));
+          } */
 
           if(planningBoard.startDate.getDate()< planning.Period.StartDate.getDate() && planningBoard.endDate.getDate() > planning.Period.EndDate.getDate()){
 
@@ -147,7 +147,7 @@ export class PlannerScrumComponent implements OnInit {
 
 
   drop(event: CdkDragDrop<string[]>, columnName: string) {
-    console.log("antes",columnName,event.item.data);
+    //console.log("antes",columnName,event.item.data);
     //En caso de que se mueva en el mismo contenedor
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -158,11 +158,11 @@ export class PlannerScrumComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
-    console.log("despues",event);
+    //console.log("despues",event);
   }
 
   ChangeTask(event,Title){
-    console.log("AAAAAAAAAAAAAH",event,Title);
+
 
   }
 
@@ -175,14 +175,14 @@ export class PlannerScrumComponent implements OnInit {
     let exist = false;
     this.boardSelected.columns.forEach(row =>{
       row.tasks.forEach(task =>{
-        console.log(task.Code == planning.Code,task.Code, planning.Code)
+        //console.log(task.Code == planning.Code,task.Code, planning.Code)
         if(task.Code == planning.Code){
           exist = true
         }
       });
     });
     if(!exist){
-      console.log(planning.State)
+      //console.log(planning.State)
       this.boardSelected.columns[planning.State-7].tasks.push(planning);
     }else{
       Swal.fire('Error', "No puede crear dos tareas iguales en la misma semana.", 'error');
@@ -190,7 +190,7 @@ export class PlannerScrumComponent implements OnInit {
   }
 
   GetTypeTask(type){
-    console.log(type,typeof(type));
+    //console.log(type,typeof(type));
     let r = this.TaskTypes.filter(x=>{
       return x.Key == type;
     });
@@ -205,14 +205,14 @@ export class PlannerScrumComponent implements OnInit {
     this.iterationBussines.GetIterations(this.ProjectSelected.ProjectId)
     .then(x => {
       this.Iterations = x;
-      console.log("Se cargaron correctamente las iteraciones"+x);
+      //console.log("Se cargaron correctamente las iteraciones"+x);
     }).catch(x => {
-      console.log("error en las iteraciones"+x)
+      //console.log("error en las iteraciones"+x)
     })
   }
   NewIteration(){
-    console.log("Project"+this.ProjectSelected != null)//null != null True
-    console.log("Project"+this.ProjectSelected)
+    //console.log("Project"+this.ProjectSelected != null)//null != null True
+    //console.log("Project"+this.ProjectSelected)
     if (this.ProjectSelected != null){
       this.modalEditIteration.LaunchModal(this.ProjectSelected.ProjectId); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html JAJAJAJAJAJA
 
@@ -231,9 +231,9 @@ export class PlannerScrumComponent implements OnInit {
     this.projectBussines.GetProjects()
       .then(x => {
         this.Projects = x;
-        console.log("Se cargaron correctamente los proyectos" + x);
+        //console.log("Se cargaron correctamente los proyectos" + x);
       }).catch(x => {
-        console.log("error en los proyectos" + x)
+        //console.log("error en los proyectos" + x)
       })
   }
   NewProject() {
@@ -257,22 +257,22 @@ export class PlannerScrumComponent implements OnInit {
   }
 
   GetTasks() {
-    console.log("SALEE:"+this.IterationSelected);
+    //console.log("SALEE:"+this.IterationSelected);
     if (this.IterationSelected == null){
       this.tasksInfo= "No hay Tareas para mostrar";
       this.IterationSelected = new Iteration();
       this.IterationSelected.Tasks = [];
       return;
     }
-    console.log("LA Iteración es la "+this.IterationSelected.IterationCode);
-    console.log("Y el proyecto es: "+this.IterationSelected.ProjectId);
+    //console.log("LA Iteración es la "+this.IterationSelected.IterationCode);
+    //console.log("Y el proyecto es: "+this.IterationSelected.ProjectId);
 
     this.taskBussines.GetTasks(this.IterationSelected.ProjectId, this.IterationSelected.IterationCode)
     .then(x => {
       this.IterationSelected.Tasks = x;
-      console.log("Se cargaron correctamente las iteraciones"+x);
+      //console.log("Se cargaron correctamente las iteraciones"+x);
     }).catch(x => {
-      console.log("error en las iteraciones"+x)
+      //console.log("error en las iteraciones"+x)
     })
   }
 
@@ -281,7 +281,7 @@ export class PlannerScrumComponent implements OnInit {
   }
 
   LaunchModalTagTask() {
-    console.log("Se abre el modal de targeta de tarea")
+    //console.log("Se abre el modal de targeta de tarea")
   }
 
   ngOnInit(): void {

@@ -29,9 +29,9 @@ export class RequirementEditComponent implements OnInit {
     this.requirementBussines.SaveRequirement(this.RequirementOpened).then(x=> {
       this.modalService.dismissAll('Save');
       this.OnSaveEvent.emit();
-      console.log("Se guardo correctamente el Backlog "+x);
+      //console.log("Se guardo correctamente el Backlog "+x);
     }).catch(x => {
-      console.log("error "+x)
+      //console.log("error "+x)
     });
 
   }

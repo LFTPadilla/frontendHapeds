@@ -23,9 +23,9 @@ export class RequirementsComponent implements OnInit {
     let idReq = "3";
     this.requirementBussines.GetRequirements().then(x=> {
       this.requirements = x
-      console.log("Se cargaron correctamente los requirements "+x);
+      //console.log("Se cargaron correctamente los requirements "+x);
     }).catch(x => {
-      console.log("error "+x)
+      //console.log("error "+x)
     });
   }
 

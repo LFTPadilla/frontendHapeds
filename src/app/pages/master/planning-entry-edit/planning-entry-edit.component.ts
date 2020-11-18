@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class PlanningEntryEditComponent implements OnInit {
 
-  PlanningEntryOpened: PlanningEntry
+  PlanningEntryOpened: PlanningEntry = new PlanningEntry();
   @ViewChild( 'ModalEdit', {static:false}) modalEdit;
 
   constructor(private modalService: NgbModal) { }

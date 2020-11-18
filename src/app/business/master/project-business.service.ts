@@ -13,10 +13,10 @@ export class ProjectBusinessService {
 
   public GetProjects(): Promise<Project[]> {
     let serviceObj = new ServiceObject("ProjectService", 'Project', 'GetProjects');
-  
+
     return this.apiGatewayService.PostAction(serviceObj)
       .then(x => {
-/*         console.log(x);
+/*         //console.log(x);
         serviceObj = x as ServiceObject;
         if (!serviceObj.Success) {
           throw new Error(serviceObj.Message);

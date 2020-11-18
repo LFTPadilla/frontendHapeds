@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TasksBusinessService } from 'src/app/business/master/tasks-business.service';
@@ -27,13 +27,14 @@ export class TaskEditComponent implements OnInit {
   ProjectSelected: string;
 
   @ViewChild( 'ModalEdit', {static:false}) modalEdit;
+  @Output() OnSaveTask = new EventEmitter<boolean>();
 
   TaskTypes: KeyValuePair[] = [ { "Key": 1,"Value": "Diseño" },{ "Key": 2,"Value": "Requerimientos" },{ "Key": 3,"Value": "Desarrollo" },{ "Key": 4,"Value": "Pruebas" },{ "Key": 5,"Value": "Despliegue" },{ "Key": 6,"Value": "Administración" },{ "Key": 7,"Value": "Arreglo de errores" } ];
 
 
 
   constructor(private modalService: NgbModal, private tasksBussines: TasksBusinessService) {
-    
+
   }
 
   LaunchModal(projectId: string, iterationcode:string){
@@ -60,7 +61,7 @@ export class TaskEditComponent implements OnInit {
       return;
     }
 
-    this.TaskOpened.TaskType = IterationTaskTypes.Develop; //Esta toca ponerla con combobox
+    //this.TaskOpened.TaskType = IterationTaskTypes.Develop; //Esta toca ponerla con combobox
     this.TaskOpened.State = AgileStates.Planned;          //Esta se mantiene siempre en planned al crear una task
     this.TaskOpened.RealEffort=0.0;
     this.TaskOpened.RealHours=0.0;
@@ -69,11 +70,12 @@ export class TaskEditComponent implements OnInit {
     this.TaskOpened.RequirementId = this.RequirementSelected.RequirementId
     this.tasksBussines.SaveTask(this.TaskOpened)
     .then( x => {
+      this.OnSaveTask.emit();
       this.modalService.dismissAll('Save');
       taskForm.form.reset();
-      console.log("Se guardó correctamente la tarea"+x);
+      //console.log("Se guardó correctamente la tarea"+x);
     }).catch(x => {
-      console.log("Error"+x)
+      //console.log("Error"+x)
       Swal.fire({
         title: 'Advertencia',
         text: 'No fue posible guardar la Tarea. Revise que el código no esté repetido',
@@ -87,9 +89,9 @@ export class TaskEditComponent implements OnInit {
     this.tasksBussines.GetRequirements(this.ProjectSelected)
       .then(x => {
         this.Requirements = x;
-        console.log("Se cargaron correctamente los Requerimientos" + x);
+        //console.log("Se cargaron correctamente los Requerimientos" + x);
       }).catch(x => {
-        console.log("error en los Requerimientos" + x)
+        //console.log("error en los Requerimientos" + x)
       })
   }
 
