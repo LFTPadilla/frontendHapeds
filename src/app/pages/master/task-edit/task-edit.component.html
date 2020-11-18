@@ -61,8 +61,9 @@
 
                     <div class="col-3 col-md-3">
                         <label for="etiqueta">Tipo</label>
-                        <ng-select [items]="this.TaskTypes" name="TaskProxyType" #TaskProxyType bindlabel="Value" bindValue="key" [(ngModel)]="TaskProxyOpened.Type">
-                        </ng-select>    
+                        <input type="text" class="form-control" name="TaskProxyType" #TaskProxyType required
+                            [(ngModel)]="TaskProxyOpened.Type" >
+
                     </div>
                     <div class="col-6 col-md-3">
                         <label for="etiqueta">Esfuerzo Promedio</label>
