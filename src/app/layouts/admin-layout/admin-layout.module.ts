@@ -16,7 +16,7 @@ import { UsersModule } from 'src/app/pages/master/users/users.module';
 import { ProjectsModule } from 'src/app/pages/master/projects/projects.module';
 import { TasksModule } from 'src/app/pages/master/tasks/tasks.module';
 import { RequirementsModule } from 'src/app/pages/master/requirements/requirements.module';
-import { IterationEditModule } from 'src/app/pages/master/iteration-edit/iteration-edit.module';
+
 import { PlannerScrumModule } from 'src/app/pages/master/planner-scrum/planner-scrum.module';
 // import { ToastrModule } from 'ngx-toastr';
 
