@@ -50,18 +50,18 @@ export class PlannerScrumComponent implements OnInit {
     let p2 = new PlanningEntry()
     p2.State = this.agileStates.InProgress;
     p2.PlannedHours = 12;
-    p2.Period = new PlanningPeriod(1,"Periodo ",new Date("01/17/2020"),new Date("01/12/2020"));
+    p2.Period = new PlanningPeriod(1,"Periodo ",new Date("01/17/2020"),new Date("01/18/2020"));
     it1.Planning = [p1,p2];
 
     let it2 = new IterationTask("code2","Tarea 2");
     let p3 = new PlanningEntry()
     p3.State = this.agileStates.InReview;
     p3.PlannedHours = 29;
-    p3.Period = new PlanningPeriod(1,"Periodo ",new Date("01/09/2020"),new Date("01/24/2020"));
+    p3.Period = new PlanningPeriod(1,"Periodo ",new Date("01/09/2020"),new Date("01/14/2020"));
     let p4 = new PlanningEntry()
     p4.State = this.agileStates.Done;
     p4.PlannedHours = 66;
-    p4.Period = new PlanningPeriod(1,"Periodo ",new Date("01/18/2020"),new Date("01/12/2020"));
+    p4.Period = new PlanningPeriod(1,"Periodo ",new Date("01/18/2020"),new Date("01/20/2020"));
     it2.Planning = [p3,p4];
 
 
@@ -95,7 +95,7 @@ export class PlannerScrumComponent implements OnInit {
       /*
       Fin de la semana es el inicio de la semana más 7 días, excepto la utlima semana que son los días sobrantes
       */
-      let EndWeek = new Date(StartWeek.getDate());
+      let EndWeek = new Date(StartWeek);
       console.log(i,Weeks,Days,(i-1)*7,Days-(i-1)*7, i==Weeks?Days-(i-1)*7:7)
       EndWeek.setDate(StartWeek.getDate()+ (i==Weeks?Days-(i-1)*7:7));
 
@@ -112,12 +112,21 @@ export class PlannerScrumComponent implements OnInit {
     this.IterationSelected.Tasks.forEach(iterTasks =>{
       iterTasks.Planning.forEach(planning =>{
         planning.Period.StartDate.getTime()
-        this.IterationBoards.forEach(planningBoard=>{
-          console.log(planningBoard.name,planningBoard.startDate,planningBoard.startDate.getDate()< planning.Period.StartDate.getDate(),planningBoard.endDate.getDate()> planning.Period.StartDate.getDate());
-          if(planningBoard.startDate.getDate()< planning.Period.StartDate.getDate() && planningBoard.endDate.getDate()> planning.Period.StartDate.getDate()){
+        this.IterationBoards.forEach((planningBoard,index)=>{
+          if (index == this.IterationBoards.length-1){
+            console.log(planningBoard.name,moment(planningBoard.startDate).format("MMM Do YY") , moment(planning.Period.EndDate).format("MMM Do YY"),moment(planningBoard.endDate).format("MMM Do YY"));
+          }
+
+          if(planningBoard.startDate.getDate()< planning.Period.StartDate.getDate() && planningBoard.endDate.getDate() > planning.Period.EndDate.getDate()){
 
             let planningP = new PlanningEntryPlanner(iterTasks.Code,iterTasks.Title,iterTasks.TaskType,planning.PlannedEffort,planning.State);
-            planningBoard.columns[0].tasks.push(planningP);
+            planningBoard.columns[planning.State-7].tasks.push(planningP);
+            /* switch (planning.State) {
+              case 7:
+                break;
+              default:
+                break;
+            } */
           }
         })
 
@@ -133,15 +142,24 @@ export class PlannerScrumComponent implements OnInit {
 
 
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>, columnName: string) {
+    console.log("antes",columnName,event.item.data);
+    //En caso de que se mueva en el mismo contenedor
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      //En caso de que cambie contenedor
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
     }
+    console.log("despues",event);
+  }
+
+  ChangeTask(event,Title){
+    console.log("AAAAAAAAAAAAAH",event,Title);
+
   }
 
   AddTasktoWeek(task: IterationTask) {

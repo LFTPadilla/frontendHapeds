@@ -97,12 +97,12 @@
                       <div class="tasks-container"
                       cdkDropList
                       [cdkDropListData]="column.tasks"
-                      (cdkDropListDropped)="drop($event)">
-                        <div class="task" *ngFor="let item of column.tasks" cdkDrag>
-
-                          <a  (click)="LaunchModalTagTask()" class="a" >{{ item.Title }}</a> <br>
-                          <p style="display:inline">Tipo: {{item.TaskType}} <br>PF: {{item.PlannedEffort}}</p>
-
+                      (cdkDropListDropped)="drop($event,column.name)">
+                        <div class="task" *ngFor="let item of column.tasks" cdkDrag >
+                          <div (click)="ChangeTask($event,item.Title)">
+                            <a  (click)="LaunchModalTagTask()" class="a" >{{ item.Title }}</a> <br>
+                            <p style="display:inline">Tipo: {{item.TaskType}} <br>PF: {{item.PlannedEffort}}</p>
+                          </div>
 
                         </div>
                       </div>
