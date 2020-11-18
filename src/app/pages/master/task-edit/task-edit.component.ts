@@ -6,6 +6,7 @@ import { AgileStates } from 'src/app/model/agile-states.enum';
 import { IterationTask } from 'src/app/model/iteration-task';
 import { IterationTaskTypes } from 'src/app/model/iteration-task-types.enum';
 import { KeyValuePair } from 'src/app/model/key-value-pair';
+import { Project } from 'src/app/model/project';
 import { Requirement } from 'src/app/model/Requirement';
 import { TaskProxy } from 'src/app/model/task-proxy';
 import Swal from 'sweetalert2';
@@ -23,6 +24,7 @@ export class TaskEditComponent implements OnInit {
   TaskProxyOpened: TaskProxy;
   Requirements: Requirement[]=[];
   RequirementSelected: Requirement;
+  ProjectSelected: string;
 
   @ViewChild( 'ModalEdit', {static:false}) modalEdit;
 
@@ -31,7 +33,7 @@ export class TaskEditComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal, private tasksBussines: TasksBusinessService) {
-    this.GetRequirements();
+    
   }
 
   LaunchModal(projectId: string, iterationcode:string){
@@ -39,6 +41,8 @@ export class TaskEditComponent implements OnInit {
     this.TaskOpened.ProjectId = projectId;
     this.TaskOpened.IterationCode = iterationcode;
     this.TaskProxyOpened = new TaskProxy();
+    this.ProjectSelected = projectId;
+    this.GetRequirements();
     this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title', size:'xl'});
 
   }
@@ -80,7 +84,7 @@ export class TaskEditComponent implements OnInit {
   }
 
   GetRequirements(){
-    this.tasksBussines.GetRequirements()
+    this.tasksBussines.GetRequirements(this.ProjectSelected)
       .then(x => {
         this.Requirements = x;
         console.log("Se cargaron correctamente los Requerimientos" + x);

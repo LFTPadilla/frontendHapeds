@@ -20,6 +20,6 @@ export class IterationTask {
   Edition: string;
   Planning: PlanningEntry[];
 
-  constructor(public Code: string,public Title: string) {}
+  constructor(public IterationTaskCode: string,public Title: string) {}
 
 }

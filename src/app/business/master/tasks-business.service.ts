@@ -12,9 +12,9 @@ export class TasksBusinessService {
   constructor(private apiGatewayService: ApiGatewayService) { }
 
 
-  public GetTasks(): Promise<IterationTask[]> {
+  public GetTasks(projectId: string, iterationCode: string): Promise<IterationTask[]> {
     let serviceObj = new ServiceObject("Hapeds", 'Tasks', 'GetTasks');
-    //serviceObj.Data = { projectId }
+    serviceObj.Data = { projectId, iterationCode }
     return this.apiGatewayService.PostAction(serviceObj)
       .then(x => {
         const tasks = x as IterationTask[];
@@ -43,9 +43,9 @@ export class TasksBusinessService {
       });
   }
 
-  public GetRequirements(): Promise<Requirement[]> {
+  public GetRequirements(projectId: string ): Promise<Requirement[]> {
     let serviceObj = new ServiceObject("Hapeds", 'Requirement', 'GetRequirements');
-    //serviceObj.Data = { projectId }
+    serviceObj.Data = { projectId }
     return this.apiGatewayService.PostAction(serviceObj)
       .then(x => {
         const reqs = x as Requirement[];

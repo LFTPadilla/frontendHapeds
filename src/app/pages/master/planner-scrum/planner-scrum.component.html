@@ -7,7 +7,7 @@
 </div>
 <div class="container-fluid mt-7">
 
-<!-- Table -->
+  <!-- Table -->
   <div class="row">
     <div class="col">
       <div class="card shadow">
@@ -17,9 +17,8 @@
           <div class="row">
             <div class="col-2">
               <label for="ProjSel">Proyecto</label>
-              <ng-select [items]="Projects" name="ProjSel" #ProjSel
-              bindLabel="Title"
-              [(ngModel)]="this.ProjectSelected" (change)="GetIterations()">
+              <ng-select [items]="Projects" name="ProjSel" #ProjSel bindLabel="Title" [(ngModel)]="this.ProjectSelected"
+                (change)="GetIterations()">
               </ng-select>
             </div>
             <div class="col-1" style="margin-top: 2em">
@@ -27,9 +26,8 @@
             </div>
             <div class="col-2">
               <label for="IterSel">Iteraciones</label>
-              <ng-select [items]="Iterations" name="IterSel" #IterSel
-              bindLabel="IterationCode"
-              [(ngModel)]="this.IterationSelected">
+              <ng-select [items]="Iterations" name="IterSel" #IterSel bindLabel="IterationCode"
+                [(ngModel)]="this.IterationSelected" (change)="GetTasks()">
               </ng-select>
             </div>
             <div class="col-1" style="margin-top: 2em;">
@@ -43,23 +41,26 @@
             <!-- LIST TASKS -->
             <div class="col-3">
 
-              <div class="card shadow" style="margin-bottom: 15px;" >
+              <div class="card shadow" style="margin-bottom: 15px;">
                 <!-- Cabecera -->
                 <div class="card-header">
 
                   <h2 style="display:inline-block">Tareas</h2>
                   <button type="button" style="float:right" class="btn btn-info btn-sm" (click)="NewTask()">+</button>
                 </div>
-
+                <h3>{{tasksInfo}}</h3>
                 <!-- Listado -->
-                <div class="row taskRow" *ngFor="let task of IterationSelected.Tasks" >
-                  <div class="col-8" >{{task.Title}}</div>
+                <div class="row taskRow" *ngFor="let task of IterationSelected.Tasks">
+                  <div class="col-8">{{task.IterationTaskCode}}</div>
                   <div class="col-4">
-                    <button type="button" title="Más opciones" class="btn btn-primary btn-sm" >*</button>
-                    <button type="button" title="Añadir a la semana->" (click)="AddTasktoWeek(task)" class="btn btn-info btn-sm" >&gt;</button>
+                    <button type="button" title="Más opciones" class="btn btn-primary btn-sm">*</button>
+                    <button type="button" title="Añadir a la semana->" (click)="AddTasktoWeek(task)"
+                      class="btn btn-info btn-sm">&gt;</button>
                   </div>
                 </div>
-                <div class="row" style="margin-top:30px"><div class="col-12"></div></div>
+                <div class="row" style="margin-top:30px">
+                  <div class="col-12"></div>
+                </div>
 
 
               </div>
@@ -73,13 +74,15 @@
                 <div class="board-bar">
                   <div class="row">
                     <div class="col-2">
-                      <button type="button" style="float: left;" class="btn btn-success"  (click)="ChangeWeek(-1)" [disabled]="this.WeekPosition==0">Anterior</button>
+                      <button type="button" style="float: left;" class="btn btn-success" (click)="ChangeWeek(-1)"
+                        [disabled]="this.WeekPosition==0">Anterior</button>
                     </div>
                     <div class="col-8">
                       <p class="board-name">{{ boardSelected.name }}</p>
                     </div>
                     <div class="col-2">
-                      <button type="button" style="float: right;" class="btn btn-success" (click)="ChangeWeek(1)" [disabled]="this.WeekPosition==this.IterationBoards.length-1">Siguiente</button>
+                      <button type="button" style="float: right;" class="btn btn-success" (click)="ChangeWeek(1)"
+                        [disabled]="this.WeekPosition==this.IterationBoards.length-1">Siguiente</button>
                     </div>
                   </div>
 
@@ -99,8 +102,10 @@
                       [cdkDropListData]="column.tasks"
                       (cdkDropListDropped)="drop($event,column.name)">
                         <div class="task" *ngFor="let item of column.tasks" cdkDrag >
+
                           <div (click)="ChangeTask($event,item.Title)">
-                            <a  (click)="LaunchModalTagTask()" class="a" >{{ item.Title }}</a> <br>
+                            <button type="button" (click)="EditPlanningEntry()"
+                            class="btn btn-default btn-block">{{ item.Code }}*</button> <br>
                             <p style="display:inline">Tipo: {{item.TaskType}} <br>PF: {{item.PlannedEffort}}</p>
                           </div>
 
@@ -124,6 +129,7 @@
   </div>
 </div>
 
-<app-iteration-edit #ModalEditIteration (OnSaveIterationEvent)="GetIterations()" ></app-iteration-edit>
-<app-project-edit #ModalEditProject (OnSaveProjectEvent)="GetProjects()" ></app-project-edit>
-<app-task-edit #ModalEditTask ></app-task-edit>
+<app-iteration-edit #ModalEditIteration (OnSaveIterationEvent)="GetIterations()"></app-iteration-edit>
+<app-project-edit #ModalEditProject (OnSaveProjectEvent)="GetProjects()"></app-project-edit>
+<app-task-edit #ModalEditTask></app-task-edit>
+<app-planning-entry-edit #ModalEditPlanningEntry ></app-planning-entry-edit>
