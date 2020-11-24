@@ -1,0 +1,82 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt-7">
+
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <!-- Cabecera -->
+        <div class="card-header border-0">
+          <!-- <h3 class="mb-0">Lista de Proyectos</h3> -->
+
+
+
+          <div class="row" style="margin-top:1em">
+
+            <!-- KANBAN  -->
+            <div class="col-12">
+
+              <div class="board">
+
+                <div class="board-bar">
+                  <div class="row">
+                    <div class="col-2">
+                      <button type="button" style="float: left;" class="btn btn-success" (click)="ChangeWeek(-1)"
+                        [disabled]="this.WeekPosition==0">Anterior</button>
+                    </div>
+                    <div class="col-8">
+                      <p class="board-name">{{ boardSelected.name }}</p>
+                    </div>
+                    <div class="col-2">
+                      <button type="button" style="float: right;" class="btn btn-success" (click)="ChangeWeek(1)"
+                        [disabled]="this.WeekPosition==this.IterationBoards.length-1">Siguiente</button>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="board-wrapper">
+
+                  <div class="board-columns" cdkDropListGroup>
+                    <div class="board-column" *ngFor="let column of boardSelected.columns">
+
+                      <div class="column-title">
+                        {{ column.name }}
+                      </div>
+
+                      <div class="tasks-container"
+                      cdkDropList
+                      [cdkDropListData]="column.tasks"
+                      (cdkDropListDropped)="drop($event,column.name)">
+                        <div class="task" *ngFor="let item of column.tasks" cdkDrag >
+
+                          <div>
+                            <button type="button"                             class="btn btn-default btn-block">{{ item.Code }}</button> <br>
+                            <p style="display:inline">Tipo: <br>Punto Funcional: {{item.PlannedEffort}}</p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,13 +15,13 @@ export class AuthorizationBusinessService {
   {
     return this.apigateway.CreateSession(login, password)
       .then(x => {
-        /* let serviceResponse = <ServiceObject>x;
+        let serviceResponse = <ServiceObject>x;
         if (!serviceResponse.Success)
           throw new Error(serviceResponse.Message);
         //Guarda Usuario en Session
-        serviceResponse.Data.SessionToken = serviceResponse.SessionToken;
+        //serviceResponse.Data.SessionToken = serviceResponse.SessionToken;
 
-        */
+
        if(x.Success){
         AppEnviroment.User = x.User;
        }
@@ -34,9 +34,27 @@ export class AuthorizationBusinessService {
       });
   }
 
+  public async RegisterUser(form:any)
+  {
+    return this.apigateway.RegisterUser(form.login,form.document,form.email,form.password).then(x => {
+        let serviceResponse = <ServiceObject>x;
+        if (!serviceResponse.Success)
+          throw serviceResponse.Message;
+        //Guarda Usuario en Session
+        //serviceResponse.Data.SessionToken = serviceResponse.SessionToken;
+        //AppEnviroment.User = x.User;
+
+        //Mapea objeto
+        return Promise.resolve(x);
+      })
+      .catch(x => {
+        console.log("mando la excepcion",x);
+        throw x;
+      });
+  }
+
   public CloseSession()
   {
-
     AppEnviroment.CloseSession();
   }
 

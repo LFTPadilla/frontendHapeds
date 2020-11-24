@@ -18,6 +18,7 @@ import { TasksModule } from 'src/app/pages/master/tasks/tasks.module';
 import { RequirementsModule } from 'src/app/pages/master/requirements/requirements.module';
 
 import { PlannerScrumModule } from 'src/app/pages/master/planner-scrum/planner-scrum.module';
+import { PlannerMemberComponent } from '../../pages/member/planner-member/planner-member.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -42,7 +43,8 @@ import { PlannerScrumModule } from 'src/app/pages/master/planner-scrum/planner-s
     UserProfileComponent,
     TablesComponent,
     IconsComponent,
-    MapsComponent
+    MapsComponent,
+    PlannerMemberComponent
   ]
 })
 

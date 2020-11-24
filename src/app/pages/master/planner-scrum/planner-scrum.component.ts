@@ -52,11 +52,11 @@ export class PlannerScrumComponent implements OnInit {
     let p1 = new PlanningEntry()
     p1.State = this.agileStates.Planned;
     p1.PlannedHours = 20;
-    p1.Period = new PlanningPeriod(1,"Periodo ",new Date("01/09/2020"),new Date("01/12/2020"));
+    p1.Period = new PlanningPeriod(1,"Periodo ",new Date("11/01/2020"),new Date("01/12/2020"));
     let p2 = new PlanningEntry()
     p2.State = this.agileStates.InProgress;
     p2.PlannedHours = 12;
-    p2.Period = new PlanningPeriod(1,"Periodo ",new Date("01/17/2020"),new Date("01/18/2020"));
+    p2.Period = new PlanningPeriod(1,"Periodo ",new Date("11/31/2020"),new Date("01/18/2020"));
     it1.Planning = [p1,p2];
 
     let it2 = new IterationTask("code2","Tarea 2");
@@ -73,8 +73,8 @@ export class PlannerScrumComponent implements OnInit {
 
     this.IterationSelected.Tasks.push(it1);
     this.IterationSelected.Tasks.push(it2);
-    this.IterationSelected.StartDate = new Date("01/08/2020");
-    this.IterationSelected.PlannedEndDate = new Date("02/10/2020");
+    this.IterationSelected.StartDate = new Date("11/01/2020");
+    this.IterationSelected.PlannedEndDate = new Date("11/31/2020");
 
     this.LoadBoards();
     this.boardSelected = this.IterationBoards[this.WeekPosition];
@@ -83,18 +83,21 @@ export class PlannerScrumComponent implements OnInit {
   }
 
   LoadBoards(){
-
-    let Days = (this.IterationSelected.PlannedEndDate.getTime() -this.IterationSelected.StartDate.getTime() )/(1000*60*60*24);
+    console.log("ITERACION",this.IterationSelected)
+    this.IterationBoards = [];
+    let iterStarD = new Date(this.IterationSelected.StartDate);
+    let iterEndD = moment(this.IterationSelected.PlannedEndDate);
+    let Days = iterEndD.diff(moment(iterStarD), "days");//(new Date(this.IterationSelected.PlannedEndDate).getTime() -iterStarD.getTime() )/(1000*60*60*24);
 
     let Weeks =  Math.ceil(Days/7);
     //console.log("Semanas",Weeks)
 
     for (var i=1; i <= Weeks;i++){
-      let StartWeek = new Date(this.IterationSelected.StartDate);
+      let StartWeek = iterStarD;
       /*
         Inicio de semana es a la fecha de inicio de iteración más la semana posicion de la semana
       */
-      StartWeek.setDate(this.IterationSelected.StartDate.getDate() + (i-1)*7+(i!=1?1:0));
+      StartWeek.setDate(iterStarD.getDate() + (i-1)*7+(i!=1?1:0));
 
       /*
       Fin de la semana es el inicio de la semana más 7 días, excepto la utlima semana que son los días sobrantes
@@ -102,7 +105,7 @@ export class PlannerScrumComponent implements OnInit {
       let EndWeek = new Date(StartWeek);
       //console.log(i,Weeks,Days,(i-1)*7,Days-(i-1)*7, i==Weeks?Days-(i-1)*7:7)
       EndWeek.setDate(StartWeek.getDate()+ (i==Weeks?Days-(i-1)*7:7));
-
+      console.log(i,StartWeek,EndWeek)
 
       let board = new Board("Semana "+i+" ( "+moment(StartWeek).format("Do MMM")+" - "+moment(EndWeek).format("Do MMM")+")",StartWeek, EndWeek, [
         new Column('PLANEADO', []),
@@ -117,9 +120,7 @@ export class PlannerScrumComponent implements OnInit {
       iterTasks.Planning.forEach(planning =>{
         planning.Period.StartDate.getTime()
         this.IterationBoards.forEach((planningBoard,index)=>{
-          /* if (index == this.IterationBoards.length-1){
-            //console.log(planningBoard.name,moment(planningBoard.startDate).format("MMM Do YY") , moment(planning.Period.EndDate).format("MMM Do YY"),moment(planningBoard.endDate).format("MMM Do YY"));
-          } */
+
 
           if(planningBoard.startDate.getDate()< planning.Period.StartDate.getDate() && planningBoard.endDate.getDate() > planning.Period.EndDate.getDate()){
 
@@ -136,6 +137,8 @@ export class PlannerScrumComponent implements OnInit {
 
       })
     });
+
+    this.boardSelected = this.IterationBoards[0];
 
    }
 
@@ -210,6 +213,7 @@ export class PlannerScrumComponent implements OnInit {
       //console.log("error en las iteraciones"+x)
     })
   }
+
   NewIteration(){
     //console.log("Project"+this.ProjectSelected != null)//null != null True
     //console.log("Project"+this.ProjectSelected)
@@ -270,9 +274,10 @@ export class PlannerScrumComponent implements OnInit {
     this.taskBussines.GetTasks(this.IterationSelected.ProjectId, this.IterationSelected.IterationCode)
     .then(x => {
       this.IterationSelected.Tasks = x;
-      //console.log("Se cargaron correctamente las iteraciones"+x);
+      this.LoadBoards();
+      console.log("Se cargaron correctamente las tareas"+x);
     }).catch(x => {
-      //console.log("error en las iteraciones"+x)
+      console.log("error en las iteraciones"+x)
     })
   }
 

@@ -6,7 +6,8 @@ import { AuthLayoutRoutes } from './auth-layout.routing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginComponent } from '../../pages/authentication/login/login.component';
-import { RegisterComponent } from '../../pages/register/register.component';
+import { RegisterComponent } from 'src/app/pages/authentication/register/register.component';
+
 @NgModule({
   imports: [
     CommonModule,

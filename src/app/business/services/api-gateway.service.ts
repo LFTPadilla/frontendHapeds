@@ -41,6 +41,21 @@ export class ApiGatewayService {
       });
   }
 
+  async RegisterUser(login, document, email, password): Promise<ServiceObject> {
+    let ruta = `${AppEnviroment.ApiEndPoint}auth/register/`
+    let body = { login: login, document:document, email:email, password: password };
+    console.log("CUERPO",body)
+    return this.http
+      .post(ruta, body ,{headers: this.httpHeaders})
+      .toPromise()
+      .then(x => {
+        return Promise.resolve(<ServiceObject>x);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
   async RememberPassword(mail): Promise<ServiceObject> {
     return this.http
       .post(`${AppEnviroment.ApiEndPoint}Authorization/RememberPassword`, { mail: mail })

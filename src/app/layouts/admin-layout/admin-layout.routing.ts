@@ -12,10 +12,12 @@ import { TasksComponent } from 'src/app/pages/master/tasks/tasks.component';
 import { RequirementsComponent } from 'src/app/pages/master/requirements/requirements.component';
 import { IterationEditComponent } from 'src/app/pages/master/iteration-edit/iteration-edit.component';
 import { PlannerScrumComponent } from 'src/app/pages/master/planner-scrum/planner-scrum.component';
+import { PlannerMemberComponent } from 'src/app/pages/member/planner-member/planner-member.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'planner-scrum',   component: PlannerScrumComponent },
+    { path: 'planner-member',   component: PlannerMemberComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'list-members',     component: UsersComponent },
     { path: 'projects',       component: ProjectsComponent },

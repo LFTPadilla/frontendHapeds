@@ -8,14 +8,22 @@ export class User {
     Phone: string;
     Active: boolean;
     Address: string;
-    Profile: Profile = new Profile();
+    //Profile: Profile = new Profile();
+    Member: TeamMember = new TeamMember();
     Picture: FileObject;
     Password: string;
-    Personalize1: any;
-    Personalize2: any;
     UserStamp:string;
     SessionToken:string;
     Edition : string;
+}
+
+export class TeamMember{
+  Names: string;
+  Document: string;
+  Mail: string;
+  AvaliableWeekHours: number;
+  Active: boolean;
+  Permissions: string[] =[];
 }
 
 export class FileObject {
