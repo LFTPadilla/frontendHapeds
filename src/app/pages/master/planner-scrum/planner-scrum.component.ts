@@ -17,6 +17,7 @@ import { PlanningPeriod } from 'src/app/model/planning-period';
 import { ProjectBusinessService } from 'src/app/business/master/project-business.service';
 import { TasksBusinessService } from 'src/app/business/master/tasks-business.service';
 import { KeyValuePair } from 'src/app/model/key-value-pair';
+import { PlanningEntryService } from 'src/app/business/master/planning-entry.service';
 
 @Component({
   selector: 'app-planner-scrum',
@@ -46,25 +47,26 @@ export class PlannerScrumComponent implements OnInit {
 
   TaskTypes: KeyValuePair[] = [ { "Key": 1,"Value": "Diseño" },{ "Key": 2,"Value": "Requerimientos" },{ "Key": 3,"Value": "Desarrollo" },{ "Key": 4,"Value": "Pruebas" },{ "Key": 5,"Value": "Despliegue" },{ "Key": 6,"Value": "Administración" },{ "Key": 7,"Value": "Arreglo de errores" } ];
 
-  constructor(private iterationBussines : IterationsBusinessService, private projectBussines: ProjectBusinessService, private taskBussines: TasksBusinessService) {
+  constructor(private iterationBussines : IterationsBusinessService, private projectBussines: ProjectBusinessService,
+     private taskBussines: TasksBusinessService, private planningEntryBussines: PlanningEntryService) {
     moment.locale('es');
     let it1 = new IterationTask("code1","Tarea 1");
-    let p1 = new PlanningEntry()
+    let p1 = new PlanningEntry(null, null, null, null)
     p1.State = this.agileStates.Planned;
     p1.PlannedHours = 20;
     p1.Period = new PlanningPeriod(1,"Periodo ",new Date("01/09/2020"),new Date("01/12/2020"));
-    let p2 = new PlanningEntry()
+    let p2 = new PlanningEntry(null, null, null, null)
     p2.State = this.agileStates.InProgress;
     p2.PlannedHours = 12;
     p2.Period = new PlanningPeriod(1,"Periodo ",new Date("01/17/2020"),new Date("01/18/2020"));
     it1.Planning = [p1,p2];
 
     let it2 = new IterationTask("code2","Tarea 2");
-    let p3 = new PlanningEntry()
+    let p3 = new PlanningEntry(null, null, null, null)
     p3.State = this.agileStates.InReview;
     p3.PlannedHours = 29;
     p3.Period = new PlanningPeriod(1,"Periodo ",new Date("01/09/2020"),new Date("01/14/2020"));
-    let p4 = new PlanningEntry()
+    let p4 = new PlanningEntry(null, null, null, null)
     p4.State = this.agileStates.Done;
     p4.PlannedHours = 66;
     p4.Period = new PlanningPeriod(1,"Periodo ",new Date("01/18/2020"),new Date("01/20/2020"));
@@ -169,6 +171,7 @@ export class PlannerScrumComponent implements OnInit {
   AddTasktoWeek(task: IterationTask) {
     let planning = new PlanningEntryPlanner(task.IterationTaskCode, task.Title, task.TaskType, task.PlannedEffort, this.agileStates.Planned)
     this.PutNewPlanningInBoard(planning);
+    this.CreatePlanningEntry(task);
   }
 
   PutNewPlanningInBoard(planning: PlanningEntryPlanner) {
@@ -187,6 +190,25 @@ export class PlannerScrumComponent implements OnInit {
     }else{
       Swal.fire('Error', "No puede crear dos tareas iguales en la misma semana.", 'error');
     }
+  }
+
+  CreatePlanningEntry(task: IterationTask){
+    let planningEntry = new PlanningEntry(this.agileStates.Planned, this.ProjectSelected.ProjectId,
+     task.IterationTaskCode, this.IterationSelected.IterationCode);
+    planningEntry.Creation = "";
+    planningEntry.Edition = "";
+    planningEntry.PlannedHours = 0;
+    planningEntry.RealHours = 0 ;
+    planningEntry.PlannedEffort = 0.0;
+    planningEntry.RealEffort = 0.0;
+    planningEntry.Annotation = "";
+    planningEntry.Document = "";
+    planningEntry.StartDate = this.boardSelected.startDate;
+    planningEntry.EndDate = this.boardSelected.endDate;
+
+
+    
+    this.planningEntryBussines.CreatePlanningEntry(planningEntry);
   }
 
   GetTypeTask(type){

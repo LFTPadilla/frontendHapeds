@@ -1,3 +1,4 @@
 {
-  "ApiEndPoint": "https://prod-hapeds.herokuapp.com/"
+  
+  "ApiEndPoint": "http://127.0.0.1:8000/"
 }
