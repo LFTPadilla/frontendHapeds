@@ -29,7 +29,7 @@ export class AppEnviroment {
       const jsonFile = `assets/config.json`;
       return new Promise<void>((resolve, reject) => {
         httpClient.get(jsonFile).toPromise().then((response) => {
-          console.log("Resolvio bien"+response)
+          //console.log("Resolvio bien"+response)
           var result: any = response;
           AppEnviroment.ApiEndPoint = result.ApiEndPoint;
           resolve();

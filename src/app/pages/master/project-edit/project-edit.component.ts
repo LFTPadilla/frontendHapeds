@@ -25,9 +25,9 @@ export class ProjectEditComponent implements OnInit {
     this.projectBussines.SaveProject(this.ProjectOpened).then(x=> {
       this.modalService.dismissAll('Save');
       this.OnSaveProjectEvent.emit();
-      console.log("Se guardo correctamente el Proyecto "+x);
+      //console.log("Se guardo correctamente el Proyecto "+x);
     }).catch(x => {
-      console.log("error "+x)
+      //console.log("error "+x)
     });
 
   }

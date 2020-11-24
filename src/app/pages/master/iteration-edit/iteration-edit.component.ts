@@ -28,9 +28,9 @@ export class IterationEditComponent implements OnInit {
     this.iterationBussines.SaveIteration(this.IterationOpened).then(x=> {
       this.modalService.dismissAll('Save');
       this.OnSaveIterationEvent.emit();
-      console.log("Se guardo correctamente el Backlog "+x);
+      //console.log("Se guardo correctamente el Backlog "+x);
     }).catch(x => {
-      console.log("error "+x)
+      //console.log("error "+x)
     });
 
   }

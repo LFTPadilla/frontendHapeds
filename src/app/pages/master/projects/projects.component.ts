@@ -19,9 +19,9 @@ export class ProjectsComponent implements OnInit {
   getProjects(){
     this.projectBusiness.GetProjects().then(x => {
       this.projects = x
-      console.log("Se cargaron correctamente los proyectos"+x);
+      //console.log("Se cargaron correctamente los proyectos"+x);
     }).catch(x => {
-      console.log("error"+x);
+      //console.log("error"+x);
     });
 
   }

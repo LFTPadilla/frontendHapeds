@@ -105,7 +105,7 @@
 
                           <div (click)="ChangeTask($event,item.Title)">
                             <button type="button" (click)="EditPlanningEntry()"
-                            class="btn btn-default btn-block">{{ item.Code }}*</button> <br>
+                            class="btn btn-default btn-block">{{ item.Code }}</button> <br>
                             <p style="display:inline">Tipo: {{GetTypeTask(item.TaskType)}} <br>Punto Funcional: {{item.PlannedEffort}}</p>
                           </div>
 
@@ -131,5 +131,5 @@
 
 <app-iteration-edit #ModalEditIteration (OnSaveIterationEvent)="GetIterations()"></app-iteration-edit>
 <app-project-edit #ModalEditProject (OnSaveProjectEvent)="GetProjects()"></app-project-edit>
-<app-task-edit #ModalEditTask></app-task-edit>
+<app-task-edit #ModalEditTask (OnSaveTask)="GetTasks()"></app-task-edit>
 <app-planning-entry-edit #ModalEditPlanningEntry ></app-planning-entry-edit>

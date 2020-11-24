@@ -1,15 +1,15 @@
 <ng-template #ModalEdit let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Iteración</h4>
-      <h4 class="modal-title" id="modal-basic-title">{{IterationOpened.ProjectId}}</h4>
+      <h4 class="modal-title" id="modal-basic-title">&nbsp;{{IterationOpened.ProjectId}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-  
+
       <form #rejectForm="ngForm">
-  
+
         <div class="form-row">
           <div class="col-4 col-md-4">
             <label for="etiqueta">Código de la Iteración</label>
@@ -23,7 +23,7 @@
             <label for="etiqueta">Esfuerzo Planeado</label>
             <input type="number" step="0.1" class="form-control" name="IterPlannedEff" #IterPlannedEff required [(ngModel)]="IterationOpened.PlannedEffort" placeholder="0.0">
           </div>
-        </div>  
+        </div>
         <div class="form-row" style="margin-top: 10px;">
         <div class="col-6">
           <label for="etiqueta">Fecha Inicio</label>

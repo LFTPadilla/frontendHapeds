@@ -19,9 +19,9 @@ export class UsersComponent implements OnInit {
     //Nuevo
     this.userBusiness.GetUsers().then(x => {
       this.users = x
-      console.log("Se cargaron correctamente los usuarios"+x);
+      //console.log("Se cargaron correctamente los usuarios"+x);
     }).catch(x => {
-      console.log("error"+x);
+      //console.log("error"+x);
     });
   }
 
