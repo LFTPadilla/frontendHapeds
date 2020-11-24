@@ -3,14 +3,17 @@ import { PlanningPeriod } from './planning-period';
 
 export class PlanningEntry {
 
-  Id: number;
+  constructor(public State: AgileStates,
+     public ProjectId: string, public IterationTaskCode: string, public IterationCode: string){}
+
   Creation: string;
   Edition: string;
   PlannedHours: number;
   RealHours: number;
   PlannedEffort: number;
   RealEffort: number;
-  State: AgileStates;
   Annotation: string;
-  Period: PlanningPeriod;
+  Document: string;
+  StartDate: Date;
+  EndDate: Date;
 }
