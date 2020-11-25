@@ -53,7 +53,6 @@ export class PlannerScrumComponent implements OnInit {
   constructor(private iterationBussines: IterationsBusinessService, private projectBussines: ProjectBusinessService,
     private taskBussines: TasksBusinessService, private planningEntryBussines: PlanningEntryService,private router:Router) {
     moment.locale('es');
-    console.log(AppEnviroment.User)
     if(!AppEnviroment.User.Member.Permissions.includes("planner-scrum")){
       router.navigate(["/planner-member"])
     }
