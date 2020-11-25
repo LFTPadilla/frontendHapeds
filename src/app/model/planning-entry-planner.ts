@@ -4,7 +4,7 @@ import { IterationTaskTypes } from './iteration-task-types.enum';
 export class PlanningEntryPlanner {
 
 
-  constructor(public Code: string,public Id:number, public Title: string
+  constructor(public Code: string,public PlanningEntryId:number, public Title: string
     , public TaskType: IterationTaskTypes
     , public PlannedEffort: number
     , public State: AgileStates){  }
