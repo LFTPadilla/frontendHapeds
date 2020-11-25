@@ -187,11 +187,7 @@ export class PlannerScrumComponent implements OnInit {
 
   AddTasktoWeek(task: IterationTask) {
     let planning = new PlanningEntryPlanner(task.IterationTaskCode,100, task.Title, task.TaskType, task.PlannedEffort, this.agileStates.Planned)
-    this.PutNewPlanningInBoard(planning);
-    this.CreatePlanningEntry(task);
-  }
 
-  PutNewPlanningInBoard(planning: PlanningEntryPlanner) {
     let exist = false;
     this.boardSelected.columns.forEach(row =>{
       row.tasks.forEach(task =>{
@@ -204,6 +200,7 @@ export class PlannerScrumComponent implements OnInit {
     if(!exist){
       //console.log(planning.State)
       this.boardSelected.columns[planning.State-7].tasks.push(planning);
+      this.CreatePlanningEntry(task);
     }else{
       Swal.fire('Error', "No puede crear dos tareas iguales en la misma semana.", 'error');
     }
