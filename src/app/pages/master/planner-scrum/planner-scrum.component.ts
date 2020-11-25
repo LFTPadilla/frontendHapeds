@@ -166,15 +166,16 @@ export class PlannerScrumComponent implements OnInit {
         console.log(x);
         if(x['State'] != columnState){
           x['State'] = columnState;
-          this.SaveNewStatePlanningEntry(x['Id'],columnState)
+          this.SaveNewStatePlanningEntry(x['Code'],columnState)
         }
       })
     }
 
   }
 
-  SaveNewStatePlanningEntry(idPlanningEntry:number,columnState: AgileStates){
-    console.log("va a cambiar el estado de ",idPlanningEntry," a ",columnState);
+  SaveNewStatePlanningEntry(taskCode:string,columnState: AgileStates){
+    console.log("va a cambiar el estado de ",taskCode," a ",columnState);
+    this.planningEntryBussines.SaveNewStatePlanningEntry(taskCode, this.IterationSelected.IterationCode, this.ProjectSelected.ProjectId, columnState)
   }
 
 
@@ -303,12 +304,21 @@ export class PlannerScrumComponent implements OnInit {
     this.taskBussines.GetTasks(this.IterationSelected.ProjectId, this.IterationSelected.IterationCode)
     .then(x => {
       this.IterationSelected.Tasks = x;
+      //this.GetPlanningEntries();
       this.LoadBoards();
       console.log("Se cargaron correctamente las tareas"+x);
     }).catch(x => {
       console.log("error en las iteraciones"+x)
     })
   }
+
+  /* GetPlanningEntries(){
+
+    this.IterationSelected.Tasks.forEach(task =>{
+      task.Planning = this.planningEntryBussines.GetPlanningEntries(task.ProjectId, this.IterationSelected.IterationCode, task.IterationTaskCode);
+    })
+
+  } */
 
   EditPlanningEntry(){
     this.modalEditPlanningEntry.LaunchModal();

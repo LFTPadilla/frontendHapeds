@@ -3,6 +3,7 @@ import { ServiceObject } from 'src/app/model/service-object';
 import { ApiGatewayService } from '../services/api-gateway.service';
 import { Requirement } from 'src/app/model/Requirement';
 import { IterationTask } from 'src/app/model/iteration-task';
+import { AgileStates } from 'src/app/model/agile-states.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,8 @@ export class TasksBusinessService {
         throw x.message;
       });
   }
+
+  
 
   public GetRequirements(projectId: string ): Promise<Requirement[]> {
     let serviceObj = new ServiceObject("Hapeds", 'Requirement', 'GetRequirements');
