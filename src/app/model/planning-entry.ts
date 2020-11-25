@@ -6,7 +6,7 @@ export class PlanningEntry {
   constructor(public State: AgileStates,
      public ProjectId: string, public IterationTaskCode: string, public IterationCode: string){}
 
-  Id: number;
+  PlanningEntryId: number;
   Creation: string;
   Edition: string;
   PlannedHours: number;

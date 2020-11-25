@@ -18,6 +18,9 @@ import { ProjectBusinessService } from 'src/app/business/master/project-business
 import { TasksBusinessService } from 'src/app/business/master/tasks-business.service';
 import { KeyValuePair } from 'src/app/model/key-value-pair';
 import { PlanningEntryService } from 'src/app/business/master/planning-entry.service';
+import { IfStmt } from '@angular/compiler';
+import { AppEnviroment } from 'src/app/model/app-enviroment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-planner-scrum',
@@ -42,15 +45,19 @@ export class PlannerScrumComponent implements OnInit {
   agileStates = AgileStates;
   tasksInfo = "";
 
-  boardSelected: Board = new Board('Loading', new Date(), new Date(), [new Column('LOADING', this.agileStates.Planned, [])]);
+  boardSelected: Board = new Board('SELECCIONE UN PROYECTO E ITERACIÓN.', new Date(), new Date(), [new Column('', this.agileStates.Planned, [])]);
   WeekPosition: number = 0;
 
   TaskTypes: KeyValuePair[] = [{ "Key": 1, "Value": "Diseño" }, { "Key": 2, "Value": "Requerimientos" }, { "Key": 3, "Value": "Desarrollo" }, { "Key": 4, "Value": "Pruebas" }, { "Key": 5, "Value": "Despliegue" }, { "Key": 6, "Value": "Administración" }, { "Key": 7, "Value": "Arreglo de errores" }];
 
   constructor(private iterationBussines: IterationsBusinessService, private projectBussines: ProjectBusinessService,
-    private taskBussines: TasksBusinessService, private planningEntryBussines: PlanningEntryService) {
+    private taskBussines: TasksBusinessService, private planningEntryBussines: PlanningEntryService,private router:Router) {
     moment.locale('es');
-    let it1 = new IterationTask("code1", "Tarea 1");
+    console.log(AppEnviroment.User)
+    if(!AppEnviroment.User.Member.Permissions.includes("planner-scrum")){
+      router.navigate(["/planner-member"])
+    }
+    /* let it1 = new IterationTask("code1", "Tarea 1");
     let p1 = new PlanningEntry(this.agileStates.Planned, 'p1', 'Taskp1', 'Iter1');
     p1.StartDate = new Date('11/01/2020')
     p1.EndDate = new Date('11/03/2020')
@@ -84,7 +91,7 @@ export class PlannerScrumComponent implements OnInit {
     this.IterationSelected.PlannedEndDate = new Date("12/31/2020");
 
     this.LoadBoards();
-    this.boardSelected = this.IterationBoards[this.WeekPosition];
+    this.boardSelected = this.IterationBoards[this.WeekPosition]; */
 
     this.GetProjects();
   }
@@ -104,8 +111,8 @@ export class PlannerScrumComponent implements OnInit {
       /*
         Inicio de semana es a la fecha de inicio de iteración más la semana posicion de la semana
       */
-      console.log(StartWeek, (i - 1) * 7 + (i != 1 ? 1 : 0));
-      StartWeek.setDate(iterStarD.getDate() + (i - 1) * 7);
+      console.log(StartWeek,iterStarD, + (i - 1) * 7+1);
+      StartWeek.setDate(iterStarD.getDate() + (i - 1) * 7+1);
 
       /*
       Fin de la semana es el inicio de la semana más 7 días, excepto la utlima semana que son los días sobrantes
@@ -127,9 +134,9 @@ export class PlannerScrumComponent implements OnInit {
     this.IterationSelected.Tasks.forEach(iterTask => {
       iterTask.Planning.forEach(planning => {
         this.IterationBoards.forEach((planningBoard, index) => {
-
-          if (planningBoard.startDate <= planning.StartDate && planningBoard.endDate >= planning.EndDate) {
-            let planningP = new PlanningEntryPlanner(iterTask.IterationTaskCode, planning.Id, iterTask.Title, iterTask.TaskType, planning.PlannedEffort, planning.State);
+          console.log(planningBoard.startDate,new Date(planning.StartDate),planningBoard.startDate <= planning.StartDate, planningBoard.endDate >= planning.EndDate);
+          if (planningBoard.startDate <= new Date(planning.StartDate) && planningBoard.endDate >= new Date(planning.EndDate)) {
+            let planningP = new PlanningEntryPlanner(iterTask.IterationTaskCode, planning.PlanningEntryId, iterTask.Title, iterTask.TaskType, planning.PlannedEffort, planning.State);
             planningBoard.columns[planning.State - 7].tasks.push(planningP);
           }
         })
@@ -160,7 +167,7 @@ export class PlannerScrumComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
-    PlanningEntryPlanner
+
     if (event.isPointerOverContainer) {
       event.container.data.forEach((x) => {
         console.log(x);
@@ -174,14 +181,14 @@ export class PlannerScrumComponent implements OnInit {
   }
 
   SaveNewStatePlanningEntry(pEntryId: string, taskCode: string, columnState: AgileStates) {
-    console.log("va a cambiar el estado de ", taskCode, " a ", columnState);
+    console.log("va a cambiar el estado del id ", pEntryId, " a ", columnState);
     this.planningEntryBussines.SaveNewStatePlanningEntry(pEntryId, taskCode,
       this.IterationSelected.IterationCode, this.ProjectSelected.ProjectId, columnState)
       .then(x => {
 
-        //console.log("Se cargaron correctamente las iteraciones"+x);
+        console.log("Se guardo correctamente el nuevo estado"+x);
       }).catch(x => {
-        //console.log("error en las iteraciones"+x)
+        console.log("error en el guardado del estado"+x)
       })
   }
 
@@ -324,13 +331,7 @@ export class PlannerScrumComponent implements OnInit {
       })
   }
 
-  /* GetPlanningEntries(){
 
-    this.IterationSelected.Tasks.forEach(task =>{
-      task.Planning = this.planningEntryBussines.GetPlanningEntries(task.ProjectId, this.IterationSelected.IterationCode, task.IterationTaskCode);
-    })
-
-  } */
 
   EditPlanningEntry() {
     this.modalEditPlanningEntry.LaunchModal();
