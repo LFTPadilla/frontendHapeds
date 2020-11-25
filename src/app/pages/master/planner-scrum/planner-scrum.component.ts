@@ -42,7 +42,7 @@ export class PlannerScrumComponent implements OnInit {
   agileStates = AgileStates;
   tasksInfo = "";
 
-  boardSelected: Board = new Board('Loading',new Date(),new Date(),[new Column('LOADING', [])]);
+  boardSelected: Board = new Board('Loading',new Date(),new Date(),[new Column('LOADING',this.agileStates.Planned, [])]);
   WeekPosition: number = 0;
 
   TaskTypes: KeyValuePair[] = [ { "Key": 1,"Value": "Diseño" },{ "Key": 2,"Value": "Requerimientos" },{ "Key": 3,"Value": "Desarrollo" },{ "Key": 4,"Value": "Pruebas" },{ "Key": 5,"Value": "Despliegue" },{ "Key": 6,"Value": "Administración" },{ "Key": 7,"Value": "Arreglo de errores" } ];
@@ -51,24 +51,29 @@ export class PlannerScrumComponent implements OnInit {
      private taskBussines: TasksBusinessService, private planningEntryBussines: PlanningEntryService) {
     moment.locale('es');
     let it1 = new IterationTask("code1","Tarea 1");
-    let p1 = new PlanningEntry(null, null, null, null)
-    p1.State = this.agileStates.Planned;
+    let p1 = new PlanningEntry(this.agileStates.Planned, 'p1', 'Taskp1', 'Iter1');
+    p1.StartDate = new Date('11/01/2020')
+    p1.EndDate = new Date('11/03/2020')
     p1.PlannedHours = 20;
 
-    let p2 = new PlanningEntry(null, null, null, null)
+    let p2 = new PlanningEntry(this.agileStates.Planned, 'p2', 'Taskp2', 'Iter1');
+    p2.StartDate = new Date('11/01/2020')
+    p2.EndDate = new Date('11/05/2020')
     p2.State = this.agileStates.InProgress;
     p2.PlannedHours = 12;
 
     it1.Planning = [p1,p2];
 
     let it2 = new IterationTask("code2","Tarea 2");
-    let p3 = new PlanningEntry(null, null, null, null)
-    p3.State = this.agileStates.InReview;
+    let p3 = new PlanningEntry(this.agileStates.InReview, 'p3', 'Taskp3', 'Iter2');
+    p3.StartDate = new Date('11/08/2020')
+    p3.EndDate = new Date('11/10/2020')
     p3.PlannedHours = 29;
 
-    let p4 = new PlanningEntry(null, null, null, null)
-    p4.State = this.agileStates.Done;
+    let p4 = new PlanningEntry(this.agileStates.Done, 'p4', 'Taskp4', 'Iter2');
     p4.PlannedHours = 66;
+    p4.StartDate = new Date('11/20/2020')
+    p4.EndDate = new Date('11/22/2020')
 
     it2.Planning = [p3,p4];
 
@@ -76,7 +81,7 @@ export class PlannerScrumComponent implements OnInit {
     this.IterationSelected.Tasks.push(it1);
     this.IterationSelected.Tasks.push(it2);
     this.IterationSelected.StartDate = new Date("11/01/2020");
-    this.IterationSelected.PlannedEndDate = new Date("11/31/2020");
+    this.IterationSelected.PlannedEndDate = new Date("12/31/2020");
 
     this.LoadBoards();
     this.boardSelected = this.IterationBoards[this.WeekPosition];
@@ -95,45 +100,37 @@ export class PlannerScrumComponent implements OnInit {
     //console.log("Semanas",Weeks)
 
     for (var i=1; i <= Weeks;i++){
-      let StartWeek = iterStarD;
+      let StartWeek = new Date(iterStarD);
       /*
         Inicio de semana es a la fecha de inicio de iteración más la semana posicion de la semana
       */
-      StartWeek.setDate(iterStarD.getDate() + (i-1)*7+(i!=1?1:0));
+     console.log(StartWeek, (i-1)*7+(i!=1?1:0));
+      StartWeek.setDate(iterStarD.getDate() + (i-1)*6+(i!=1?1:0));
 
       /*
       Fin de la semana es el inicio de la semana más 7 días, excepto la utlima semana que son los días sobrantes
       */
       let EndWeek = new Date(StartWeek);
       //console.log(i,Weeks,Days,(i-1)*7,Days-(i-1)*7, i==Weeks?Days-(i-1)*7:7)
-      EndWeek.setDate(StartWeek.getDate()+ (i==Weeks?Days-(i-1)*7:7));
-      console.log(i,StartWeek,EndWeek)
+      EndWeek.setDate(StartWeek.getDate()+ (i==Weeks?Days-(i-1)*6:6));
+      //console.log(i,StartWeek,EndWeek)
 
       let board = new Board("Semana "+i+" ( "+moment(StartWeek).format("Do MMM")+" - "+moment(EndWeek).format("Do MMM")+")",StartWeek, EndWeek, [
-        new Column('PLANEADO', []),
-        new Column('EN PROGRESO', []),
-        new Column('EN REVISIÓN', []),
-        new Column('FINALIZADO', [])
+        new Column('PLANEADO', this.agileStates.Planned, []),
+        new Column('EN PROGRESO', this.agileStates.InProgress, []),
+        new Column('EN REVISIÓN', this.agileStates.InReview, []),
+        new Column('FINALIZADO', this.agileStates.Done, [])
       ]);
       this.IterationBoards.push(board);
     }
 
     this.IterationSelected.Tasks.forEach(iterTasks =>{
       iterTasks.Planning.forEach(planning =>{
-        planning.StartDate.getTime()
         this.IterationBoards.forEach((planningBoard,index)=>{
 
-
-          if(planningBoard.startDate.getDate()< planning.StartDate.getDate() && planningBoard.endDate.getDate() > planning.EndDate.getDate()){
-
-            let planningP = new PlanningEntryPlanner(iterTasks.IterationTaskCode,iterTasks.Title,iterTasks.TaskType,planning.PlannedEffort,planning.State);
+          if(planningBoard.startDate <= planning.StartDate && planningBoard.endDate >= planning.EndDate){
+            let planningP = new PlanningEntryPlanner(iterTasks.IterationTaskCode,100,iterTasks.Title,iterTasks.TaskType,planning.PlannedEffort,planning.State);
             planningBoard.columns[planning.State-7].tasks.push(planningP);
-            /* switch (planning.State) {
-              case 7:
-                break;
-              default:
-                break;
-            } */
           }
         })
 
@@ -151,7 +148,7 @@ export class PlannerScrumComponent implements OnInit {
 
 
 
-  drop(event: CdkDragDrop<string[]>, columnName: string) {
+  drop(event: CdkDragDrop<string[]>, columnState: AgileStates) {
     //console.log("antes",columnName,event.item.data);
     //En caso de que se mueva en el mismo contenedor
     if (event.previousContainer === event.container) {
@@ -163,16 +160,26 @@ export class PlannerScrumComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
-    //console.log("despues",event);
+    PlanningEntryPlanner
+    if(event.isPointerOverContainer){
+      event.container.data.forEach((x)=>{
+        console.log(x);
+        if(x['State'] != columnState){
+          x['State'] = columnState;
+          this.SaveNewStatePlanningEntry(x['Id'],columnState)
+        }
+      })
+    }
+
   }
 
-  ChangeTask(event,Title){
-
-
+  SaveNewStatePlanningEntry(idPlanningEntry:number,columnState: AgileStates){
+    console.log("va a cambiar el estado de ",idPlanningEntry," a ",columnState);
   }
+
 
   AddTasktoWeek(task: IterationTask) {
-    let planning = new PlanningEntryPlanner(task.IterationTaskCode, task.Title, task.TaskType, task.PlannedEffort, this.agileStates.Planned)
+    let planning = new PlanningEntryPlanner(task.IterationTaskCode,100, task.Title, task.TaskType, task.PlannedEffort, this.agileStates.Planned)
     this.PutNewPlanningInBoard(planning);
     this.CreatePlanningEntry(task);
   }

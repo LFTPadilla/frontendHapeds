@@ -14,11 +14,11 @@ import { PlanningEntryPlanner } from 'src/app/model/planning-entry-planner';
 export class PlannerMemberComponent implements OnInit {
 
   boardSelected: Board = new Board("Semana ",null,null, [
-    new Column('PLANEADO', [ new PlanningEntryPlanner("REQWEB202","Task",IterationTaskTypes.Develop,0,AgileStates.Planned)]),
-    new Column('EN PROGRESO', []),
-    new Column('EN REVISIÓN', []),
-    new Column('FINALIZADO', [])
-  ]);
+      new Column('PLANEADO', AgileStates.Planned, []),
+      new Column('EN PROGRESO', AgileStates.InProgress, []),
+      new Column('EN REVISIÓN', AgileStates.InReview, []),
+      new Column('FINALIZADO', AgileStates.Done, [])
+    ]);
   WeekPosition: number = 0;
   IterationBoards: Board[] = [];
 

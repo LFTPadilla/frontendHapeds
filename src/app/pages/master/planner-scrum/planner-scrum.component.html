@@ -100,14 +100,14 @@
                       <div class="tasks-container"
                       cdkDropList
                       [cdkDropListData]="column.tasks"
-                      (cdkDropListDropped)="drop($event,column.name)">
+                      (cdkDropListDropped)="drop($event,column.agileState)">
                         <div class="task" *ngFor="let item of column.tasks" cdkDrag >
 
-                          <div (click)="ChangeTask($event,item.Title)">
+
                             <button type="button" (click)="EditPlanningEntry()"
                             class="btn btn-default btn-block">{{ item.Code }}</button> <br>
                             <p style="display:inline">Tipo: {{GetTypeTask(item.TaskType)}} <br>Punto Funcional: {{item.PlannedEffort}}</p>
-                          </div>
+
 
                         </div>
                       </div>
