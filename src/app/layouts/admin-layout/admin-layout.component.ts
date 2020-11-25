@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AppEnviroment } from 'src/app/model/app-enviroment';
 
 @Component({
   selector: 'app-admin-layout',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) {
+    if(AppEnviroment.User.UserId==0){
+      this.router.navigate(["login"]);
+    }
+  }
 
   ngOnInit() {
   }

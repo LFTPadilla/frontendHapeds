@@ -105,7 +105,7 @@ export class PlannerScrumComponent implements OnInit {
         Inicio de semana es a la fecha de inicio de iteración más la semana posicion de la semana
       */
      console.log(StartWeek, (i-1)*7+(i!=1?1:0));
-      StartWeek.setDate(iterStarD.getDate() + (i-1)*6+(i!=1?1:0));
+      StartWeek.setDate(iterStarD.getDate() + (i-1)*7);
 
       /*
       Fin de la semana es el inicio de la semana más 7 días, excepto la utlima semana que son los días sobrantes
@@ -166,15 +166,22 @@ export class PlannerScrumComponent implements OnInit {
         console.log(x);
         if(x['State'] != columnState){
           x['State'] = columnState;
-          this.SaveNewStatePlanningEntry(x['Id'],columnState)
+          this.ChangeStatePlanningEntry(x['Id'],columnState)
         }
       })
     }
 
   }
 
-  SaveNewStatePlanningEntry(idPlanningEntry:number,columnState: AgileStates){
+  ChangeStatePlanningEntry(idPlanningEntry:number,columnState: AgileStates){
     console.log("va a cambiar el estado de ",idPlanningEntry," a ",columnState);
+    this.planningEntryBussines.ChangeStatePlanningEntry(idPlanningEntry, columnState)
+    .then(x => {
+
+      //console.log("Se cargaron correctamente las iteraciones"+x);
+    }).catch(x => {
+      //console.log("error en las iteraciones"+x)
+    })
   }
 
 

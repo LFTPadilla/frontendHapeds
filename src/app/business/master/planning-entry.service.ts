@@ -10,6 +10,7 @@ import { PlanningEntry } from 'src/app/model/planning-entry';
 })
 export class PlanningEntryService {
 
+
   constructor(private apiGatewayService: ApiGatewayService) { }
 
 
@@ -44,6 +45,18 @@ export class PlanningEntryService {
       });
   }
 
+  ChangeStatePlanningEntry(idPlanningEntry, columnState) {
+    let serviceObj = new ServiceObject("Hapeds", 'PlanningEntries', 'ChangeStatePlanningEntry');
+    serviceObj.Data = { id: idPlanningEntry, state: columnState }
+    return this.apiGatewayService.PostAction(serviceObj)
+      .then(x => {
+        return x;
+      })
+      .catch(x => {
+        throw x
+      });
+  }
+
   public GetRequirements(projectId: string ): Promise<Requirement[]> {
     let serviceObj = new ServiceObject("Hapeds", 'Requirement', 'GetRequirements');
     serviceObj.Data = { projectId }
@@ -56,6 +69,8 @@ export class PlanningEntryService {
         throw x
       });
   }
+
+
 
 
 }
