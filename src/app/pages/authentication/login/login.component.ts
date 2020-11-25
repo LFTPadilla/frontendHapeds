@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       await this.business.CreateSession(form.value.userLogin, form.value.password).then(
         x => {
           if(x.Success)
-            this.router.navigate(['/api/']);
+            this.router.navigate(['/api']);
           else
             Swal.fire({
               title: 'Error',
