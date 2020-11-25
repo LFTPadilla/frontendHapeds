@@ -11,6 +11,7 @@ import { AgileStates } from 'src/app/model/agile-states.enum';
 })
 export class PlanningEntryService {
 
+
   constructor(private apiGatewayService: ApiGatewayService) { }
 
 
@@ -45,6 +46,18 @@ export class PlanningEntryService {
       });
   }
 
+  ChangeStatePlanningEntry(idPlanningEntry, columnState) {
+    let serviceObj = new ServiceObject("Hapeds", 'PlanningEntries', 'ChangeStatePlanningEntry');
+    serviceObj.Data = { id: idPlanningEntry, state: columnState }
+    return this.apiGatewayService.PostAction(serviceObj)
+      .then(x => {
+        return x;
+      })
+      .catch(x => {
+        throw x
+      });
+  }
+
   public GetRequirements(projectId: string ): Promise<Requirement[]> {
     let serviceObj = new ServiceObject("Hapeds", 'Requirement', 'GetRequirements');
     serviceObj.Data = { projectId }
@@ -58,9 +71,9 @@ export class PlanningEntryService {
       });
   }
 
-  public SaveNewStatePlanningEntry(taskcode:string, iterationCode: string, projectId: string, state: AgileStates): Promise<number> {
+  public SaveNewStatePlanningEntry(pEntryId:string, taskcode:string, iterationCode: string, projectId: string, state: AgileStates): Promise<number> {
     let serviceObject = new ServiceObject('Hapeds', 'PlanningEntries', 'SaveNewStatePlanningEntry');
-    serviceObject.Data = {taskcode, iterationCode, projectId, state};
+    serviceObject.Data = {pEntryId, taskcode, iterationCode, projectId, state};
 
     return this.apiGatewayService.PostAction(serviceObject)
     .then(x => {
@@ -72,5 +85,7 @@ export class PlanningEntryService {
     })
 
     }
+
+
 
 }
