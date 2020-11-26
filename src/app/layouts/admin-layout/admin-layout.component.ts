@@ -11,12 +11,13 @@ import { AppEnviroment } from 'src/app/model/app-enviroment';
 export class AdminLayoutComponent implements OnInit {
 
   constructor(private router: Router) {
-    if(AppEnviroment.User.UserId==0){
-      this.router.navigate(["login"]);
-    }
+
   }
 
   ngOnInit() {
+    if(AppEnviroment.User.UserId==0){
+      this.router.navigate(["login"]);
+    }
   }
 
 }
