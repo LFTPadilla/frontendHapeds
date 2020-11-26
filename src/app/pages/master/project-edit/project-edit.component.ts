@@ -10,13 +10,17 @@ import { Project } from 'src/app/model/project';
 })
 export class ProjectEditComponent implements OnInit {
 
-  ProjectOpened = new Project(null, null);
-
+  public ProjectOpened = new Project(null, null);
+  isNew = true;
   @Output() OnSaveProjectEvent = new EventEmitter<boolean>();
   @ViewChild('ModalEdit',{static:false}) modalEdit;
   constructor(private modalService: NgbModal, private projectBussines: ProjectBusinessService) { }
 
-  LaunchModal(){
+  LaunchModal(isNew){
+    this.isNew = isNew;
+    if(isNew){
+      this.ProjectOpened = new Project(null, null);
+    }
     this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title', size:'xl'});
   }
 

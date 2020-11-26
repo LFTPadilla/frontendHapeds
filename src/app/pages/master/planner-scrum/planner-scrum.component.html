@@ -16,7 +16,8 @@
             </ng-select>
           </div>
           <div class="col-1" style="margin-top: 2em">
-            <button type="button" class="btn btn-info btn-sm" (click)="NewProject()">+</button>
+            <button type="button" class="btn btn-primary btn-sm" title="Agregar proyecto" (click)="EditProject(true)">+</button>
+            <button type="button" class="btn btn-info btn-sm" title="Editar proyecto"(click)="EditProject(false)">*</button>
           </div>
           <div class="col-2">
             <label for="IterSel">Iteraciones</label>
@@ -25,7 +26,8 @@
             </ng-select>
           </div>
           <div class="col-1" style="margin-top: 2em;">
-            <button type="button" class="btn btn-info btn-sm" (click)="NewIteration()">+</button>
+            <button type="button" class="btn btn-primary btn-sm" title="Agregar iteración" (click)="EditIteration(true)">+</button>
+            <button type="button" class="btn btn-info btn-sm" title="Editar iteración" (click)="EditIteration(false)">*</button>
           </div>
         </div>
 
@@ -38,18 +40,23 @@
             <div class="card shadow" style="margin-bottom: 15px;">
               <!-- Cabecera -->
               <div class="card-header">
-
-                <h2 style="display:inline-block">Tareas</h2>
-                <button type="button" style="float:right" class="btn btn-info btn-sm" (click)="NewTask()">+</button>
+                <div class="row">
+                  <div class="col-10">
+                    <h2 style="display:inline-block">Tareas</h2>
+                  </div>
+                  <div class="col-2">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="NewTask()">+</button>
+                  </div>
+                </div>
               </div>
               <h3 style="margin: 25px;" *ngIf="!IterationSelected.Tasks">{{tasksInfo}}</h3>
               <!-- Listado -->
               <div class="row taskRow" *ngFor="let task of IterationSelected.Tasks">
                 <div class="col-8">{{task.IterationTaskCode}}</div>
                 <div class="col-4">
-                  <button type="button" title="Más opciones" class="btn btn-primary btn-sm">*</button>
+                  <button type="button" title="Editar" class="btn btn-info btn-sm">*</button>
                   <button type="button" title="Añadir a la semana->" (click)="AddTasktoWeek(task)"
-                    class="btn btn-info btn-sm">&gt;</button>
+                    class="btn btn-primary btn-sm">&gt;</button>
                 </div>
               </div>
               <div class="row" style="margin-top:30px">

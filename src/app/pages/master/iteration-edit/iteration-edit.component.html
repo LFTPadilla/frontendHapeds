@@ -13,7 +13,7 @@
         <div class="form-row">
           <div class="col-4 col-md-4">
             <label for="etiqueta">Código de la Iteración</label>
-            <input type="text" class="form-control" name="IterCode" #IterCode required [(ngModel)]="IterationOpened.IterationCode" placeholder="Código de Iteración">
+            <input type="text" class="form-control" [disabled]="!isNew" name="IterCode" #IterCode required [(ngModel)]="IterationOpened.IterationCode" placeholder="Código de Iteración">
           </div>
           <div class="col-4 col-md-4">
             <label for="etiqueta">Titulo de la Iteración</label>

@@ -11,15 +11,18 @@ import { Iteration } from 'src/app/model/Iteration';
 export class IterationEditComponent implements OnInit {
 
   IterationOpened=new Iteration();
-
+  isNew = true;
   @Output() OnSaveIterationEvent = new EventEmitter<boolean>();
   @ViewChild( 'ModalEdit',{static: false} ) modalEdit;
   constructor(private modalService: NgbModal, private iterationBussines: IterationsBusinessService) { }
 
 
-  LaunchModal(projectId: string) {
-    //Object.assign(this.IterationOpened,req);
-    this.IterationOpened.ProjectId = projectId;
+  LaunchModal(projectId: string,isNew) {
+    this.isNew = isNew;
+    if(isNew){
+      this.IterationOpened = new Iteration();
+      this.IterationOpened.ProjectId = projectId;
+    }
     this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title', size:'xl'});
   }
 

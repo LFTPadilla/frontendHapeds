@@ -56,41 +56,6 @@ export class PlannerScrumComponent implements OnInit {
     if(!AppEnviroment.User.Member.Permissions.includes("planner-scrum")){
       router.navigate(["/planner-member"])
     }
-    /* let it1 = new IterationTask("code1", "Tarea 1");
-    let p1 = new PlanningEntry(this.agileStates.Planned, 'p1', 'Taskp1', 'Iter1');
-    p1.StartDate = new Date('11/01/2020')
-    p1.EndDate = new Date('11/03/2020')
-    p1.PlannedHours = 20;
-
-    let p2 = new PlanningEntry(this.agileStates.Planned, 'p2', 'Taskp2', 'Iter1');
-    p2.StartDate = new Date('11/01/2020')
-    p2.EndDate = new Date('11/05/2020')
-    p2.State = this.agileStates.InProgress;
-    p2.PlannedHours = 12;
-
-    it1.Planning = [p1, p2];
-
-    let it2 = new IterationTask("code2", "Tarea 2");
-    let p3 = new PlanningEntry(this.agileStates.InReview, 'p3', 'Taskp3', 'Iter2');
-    p3.StartDate = new Date('11/08/2020')
-    p3.EndDate = new Date('11/10/2020')
-    p3.PlannedHours = 29;
-
-    let p4 = new PlanningEntry(this.agileStates.Done, 'p4', 'Taskp4', 'Iter2');
-    p4.PlannedHours = 66;
-    p4.StartDate = new Date('11/20/2020')
-    p4.EndDate = new Date('11/22/2020')
-
-    it2.Planning = [p3, p4];
-
-
-    this.IterationSelected.Tasks.push(it1);
-    this.IterationSelected.Tasks.push(it2);
-    this.IterationSelected.StartDate = new Date("11/01/2020");
-    this.IterationSelected.PlannedEndDate = new Date("12/31/2020");
-
-    this.LoadBoards();
-    this.boardSelected = this.IterationBoards[this.WeekPosition]; */
 
     this.GetProjects();
   }
@@ -262,12 +227,13 @@ export class PlannerScrumComponent implements OnInit {
       })
   }
 
-  NewIteration() {
-    //console.log("Project"+this.ProjectSelected != null)//null != null True
-    //console.log("Project"+this.ProjectSelected)
-    if (this.ProjectSelected != null) {
-      this.modalEditIteration.LaunchModal(this.ProjectSelected.ProjectId); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html JAJAJAJAJAJA
+  EditIteration(isNew: boolean) {
+    if(!isNew){
+      this.modalEditIteration.IterationOpened = this.IterationSelected;
+    }
 
+    if (this.ProjectSelected != null) {
+      this.modalEditIteration.LaunchModal(this.ProjectSelected.ProjectId,isNew); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html JAJAJAJAJAJA
     } else {
       Swal.fire({
         title: 'Advertencia',
@@ -275,8 +241,8 @@ export class PlannerScrumComponent implements OnInit {
         icon: 'warning',
         confirmButtonText: 'Cerrar'
       });
-
     }
+
   }
 
   GetProjects() {
@@ -288,15 +254,27 @@ export class PlannerScrumComponent implements OnInit {
         //console.log("error en los proyectos" + x)
       })
   }
-  NewProject() {
-    this.modalEditProject.LaunchModal(); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
+  EditProject(isNew:boolean) {
+    if(!isNew){
 
+      if (this.ProjectSelected == null) {
+        Swal.fire({
+          title: 'Advertencia',
+          text: 'Por favor seleccione un proyecto para editar',
+          icon: 'warning',
+          confirmButtonText: 'Cerrar'
+        });
+        return;
+      }else{
+        this.modalEditProject.ProjectOpened = this.ProjectSelected;
+      }
+    }
+    this.modalEditProject.LaunchModal(isNew); //Esta como sabe a donde apunta? R:/ Ya sé, por el # en el html
   }
 
   NewTask() {
     if (this.ProjectSelected != null && this.IterationSelected != null) {
       this.modalEditTask.LaunchModal(this.ProjectSelected.ProjectId, this.IterationSelected.IterationCode);
-
     } else {
       Swal.fire({
         title: 'Advertencia',

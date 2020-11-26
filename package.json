@@ -1,9 +1,10 @@
+
 {
   "name": "front-hapeds",
   "version": "1.2.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

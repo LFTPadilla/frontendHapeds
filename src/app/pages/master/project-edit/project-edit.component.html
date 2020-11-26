@@ -12,7 +12,7 @@
       <div class="form-row">
         <div class="col-4 col-md-4">
           <label for="etiqueta">Id del Proyecto</label>
-          <input type="text" class="form-control" name="ProyId" #ProyId required [(ngModel)]="ProjectOpened.ProjectId"
+          <input type="text" class="form-control" name="ProyId" [disabled]="!isNew" #ProyId required [(ngModel)]="ProjectOpened.ProjectId"
             placeholder="Id del Proyecto">
         </div>
         <div class="col-4 col-md-4">
