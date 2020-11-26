@@ -14,8 +14,9 @@
             
             <label for="etiqueta">RequirementId</label>
             <input type="text" class="form-control" name="RequirementId" #RequirementId required [(ngModel)]="RequirementOpened.RequirementId">
-            <label for="etiqueta">ProjectId</label>
-            <input type="text" class="form-control" name="ProjectId" #ProjectId required [(ngModel)]="RequirementOpened.ProjectId">
+            <label for="ProjSel">Proyecto</label>
+            <ng-select [items]="Projects" name="ProjSel" #ProjSel bindLabel="Title" [(ngModel)]="this.ProjectSelected">
+            </ng-select>
             <label for="etiqueta">Titulo</label>
             <input type="text" class="form-control" name="Title" #Title required [(ngModel)]="RequirementOpened.Title">
             <label for="etiqueta">Description</label>

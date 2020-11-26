@@ -20,7 +20,6 @@ export class RequirementsComponent implements OnInit {
 
 
   GetRequirements(){
-    let idReq = "3";
     this.requirementBussines.GetRequirements().then(x=> {
       this.requirements = x
       //console.log("Se cargaron correctamente los requirements "+x);
@@ -36,6 +35,12 @@ export class RequirementsComponent implements OnInit {
     })[0];
 
     this.modalEditRequirement.LaunchModal(reqObj);
+
+  }
+
+  LaunchModalCreate() {
+   
+    this.modalEditRequirement.LaunchModalCreate();
 
   }
 
