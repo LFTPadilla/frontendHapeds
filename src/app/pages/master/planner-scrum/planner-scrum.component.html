@@ -9,23 +9,23 @@
       <div class="card-header border-0">
         <!-- <h3 class="mb-0">Lista de Proyectos</h3> -->
         <div class="row">
-          <div class="col-2">
+          <div class="col-9 col-md-2">
             <label for="ProjSel">Proyecto</label>
             <ng-select [items]="Projects" name="ProjSel" #ProjSel bindLabel="Title" [(ngModel)]="this.ProjectSelected"
               (change)="GetIterations()">
             </ng-select>
           </div>
-          <div class="col-1" style="margin-top: 2em">
+          <div class="col-3 col-md-1" style="margin-top: 2em">
             <button type="button" class="btn btn-primary btn-sm" title="Agregar proyecto" (click)="EditProject(true)">+</button>
             <button type="button" class="btn btn-info btn-sm" title="Editar proyecto"(click)="EditProject(false)">*</button>
           </div>
-          <div class="col-2">
+          <div class="col-9 col-md-2">
             <label for="IterSel">Iteraciones</label>
             <ng-select [items]="Iterations" name="IterSel" #IterSel bindLabel="IterationCode"
               [(ngModel)]="this.IterationSelected" (change)="GetTasks()">
             </ng-select>
           </div>
-          <div class="col-1" style="margin-top: 2em;">
+          <div class="col-3 col-md-1" style="margin-top: 2em;">
             <button type="button" class="btn btn-primary btn-sm" title="Agregar iteración" (click)="EditIteration(true)">+</button>
             <button type="button" class="btn btn-info btn-sm" title="Editar iteración" (click)="EditIteration(false)">*</button>
           </div>
@@ -35,7 +35,7 @@
         <div class="row" style="margin-top:1em">
 
           <!-- LIST TASKS -->
-          <div class="col-3">
+          <div class="col-12 col-md-3">
 
             <div class="card shadow" style="margin-bottom: 15px;">
               <!-- Cabecera -->
@@ -49,7 +49,7 @@
                   </div>
                 </div>
               </div>
-              <h3 style="margin: 25px;" *ngIf="!IterationSelected.Tasks">{{tasksInfo}}</h3>
+              <h3 style="margin: 25px;" *ngIf="IterationSelected.Tasks.length==0">{{IterationSelected.Tasks}}No hay tareas para mostrar</h3>
               <!-- Listado -->
               <div class="row taskRow" *ngFor="let task of IterationSelected.Tasks">
                 <div class="col-8">{{task.IterationTaskCode}}</div>
@@ -68,7 +68,7 @@
           </div>
 
           <!-- KANBAN  -->
-          <div class="col-9">
+          <div class="col-12 col-md-9">
 
             <div class="board">
 
@@ -130,10 +130,6 @@
 </div>
     </div>
   </div>
-</div>
-<div class="container-fluid mt-7">
-
-
 </div>
 
 <app-iteration-edit #ModalEditIteration (OnSaveIterationEvent)="GetIterations()"></app-iteration-edit>
