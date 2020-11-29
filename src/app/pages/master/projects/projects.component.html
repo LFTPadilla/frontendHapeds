@@ -17,9 +17,10 @@
                     <thead class="thead-light">
                       <tr>
                         <th scope="col">ProjectId</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Active</th>
-                        <th scope="col"></th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Descrición</th>
+                        <th scope="col">Fecha de Inicio</th>
+                        <th scope="col">Activo</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -33,11 +34,17 @@
                           {{project.Title}}
                         </td>
                         <td>
+                          {{project.Description}}
+                        </td>
+                        <td>
+                          {{project.StartDate}}
+                        </td>
+                        <td>
                           <span class="badge badge-dot mr-4">
                             <i class="bg-success"></i> {{project.Active?'Si':'No'}}
                           </span>
                         </td>
-                        <td class="text-right">
+                        <!-- <td class="text-right">
                           <div ngbDropdown placement="bottom-right">
                             <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
                               <i class="fas fa-ellipsis-v"></i>
@@ -48,13 +55,13 @@
                               <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
                             </div>
                           </div>
-                        </td>
+                        </td> -->
                       </tr>
   
                     </tbody>
                   </table>
                 </div>
-                <div class="card-footer py-4">
+                <!-- <div class="card-footer py-4">
                   <nav aria-label="...">
                     <ul class="pagination justify-content-end mb-0">
                       <li class="page-item disabled">
@@ -78,7 +85,7 @@
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

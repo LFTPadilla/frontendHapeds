@@ -39,7 +39,7 @@ export class RequirementsComponent implements OnInit {
   }
 
   LaunchModalCreate() {
-   
+    
     this.modalEditRequirement.LaunchModalCreate();
 
   }
