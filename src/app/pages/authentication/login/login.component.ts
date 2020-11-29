@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizationBusinessService } from 'src/app/business/security/authorization-business.service';
+import { AppEnviroment } from 'src/app/model/app-enviroment';
 import Swal from 'sweetalert2';
 
 export class FormInput {
@@ -19,11 +20,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   public isSubmit: boolean;
   public onAction: boolean = false;
 
+
   constructor(private business : AuthorizationBusinessService,
     private router: Router) {
       this.isSubmit = false;
-
+    if(AppEnviroment.User.UserId!=0){
+      router.navigate(['planner-scrum']);
+    }
   }
+
 
   ngOnInit() {
     this.formInput = {
@@ -64,6 +69,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     this.onAction = false;
   }
+
+  ForgotPassword(){
+
+    Swal.fire('Olvidó la contraseña', 'Por favor contatacte con el SCRUM-Master para la recuperación de su contraseña', 'info');
+
+  }
+
 
   ngOnDestroy() {
   }
