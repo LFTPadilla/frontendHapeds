@@ -83,7 +83,7 @@
                   </div>
                   <div class="col-2">
                     <button type="button" style="float: right;" class="btn btn-success" (click)="ChangeWeek(1)"
-                      [disabled]="this.WeekPosition==this.IterationBoards.length-1">Siguiente</button>
+                      [disabled]="this.IterationBoards.length==0 || this.WeekPosition==this.IterationBoards.length-1">Siguiente</button>
                   </div>
                 </div>
 
