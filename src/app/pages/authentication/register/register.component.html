@@ -44,7 +44,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                 </div>
-                <input class="form-control" placeholder="Login" name="login" #login [(ngModel)]="this.formDataRegister.login" type="text">
+                <input type="text" class="form-control" required placeholder="Login  *" name="login" #login [(ngModel)]="this.formDataRegister.login" type="text">
               </div>
             </div>
             <div class="form-group">
@@ -52,7 +52,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
-                <input class="form-control" placeholder="Correo electrónico" name="email" #email [(ngModel)]="this.formDataRegister.email" type="email">
+                <input type="email" class="form-control" required placeholder="Correo electrónico *" name="email" #email [(ngModel)]="this.formDataRegister.email" type="email">
               </div>
             </div>
             <div class="form-group">
@@ -60,7 +60,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                 </div>
-                <input class="form-control" placeholder="Documento" name="Document" #Document [(ngModel)]="this.formDataRegister.document" type="text">
+                <input type="text" class="form-control" maxlength="11" required placeholder="Documento *" name="Document" #Document [(ngModel)]="this.formDataRegister.document" type="text">
               </div>
             </div>
             <div class="form-group">
@@ -68,7 +68,8 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Password" name="password" #password [(ngModel)]="this.formDataRegister.password"type="password">
+                <input type="password" class="form-control" required placeholder="Password *" minlength="6" name="password" #password [(ngModel)]="this.formDataRegister.password" [ngClass]="{'is-invalid': !password.valid && (password.dirty || password.touched || isSubmit)}">
+                <label *ngIf="!password.valid && (password.dirty || password.touched || isSubmit)" id="validation-password-error" class="error jquery-validation-error small form-text invalid-feedback">Ingresa una contraseña válida.</label>
               </div>
             </div>
             <!-- <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div> -->
