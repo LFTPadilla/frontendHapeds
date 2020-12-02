@@ -25,17 +25,28 @@ export class RegisterComponent implements OnInit {
 
 
   RegisterUser(){
-    this.RegisterForm.form.markAllAsTouched();
-    if(this.RegisterForm.form.invalid){
+    let msgErr = '';
+    if(!this.formDataRegister.login ||!this.formDataRegister.document ||!this.formDataRegister.email ||!this.formDataRegister.password){
+      msgErr = 'Formulario inválido, por favor complete todos los cambios obligatorios (*)';
+    }
+
+    if (!(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.formDataRegister.email))){
+      msgErr = 'Formato de email incorrecto.';
+    }
+    console.log(this.formDataRegister.password.length);
+    if(this.formDataRegister.password.length < 6){
+      msgErr = 'La constraseña debe ser mayor a 5 digitos.';
+    }
+
+    if(msgErr != ''){
       Swal.fire({
         title: 'Advertencia',
-        text: 'Formulario inválido',
+        text: msgErr,
         icon: 'warning',
         confirmButtonText: 'Cerrar'
       });
       return;
     }
-
     this.onAction = true;
     this.business.RegisterUser(this.formDataRegister).then(x => {
         Swal.fire({
