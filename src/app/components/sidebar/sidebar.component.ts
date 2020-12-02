@@ -17,9 +17,9 @@ export const ROUTES: RouteInfo[] = [
     */
     { path: '/planner-scrum', title: 'Planner-Scrum',  icon:'ni-planet text-green', class: '',permission:'planner-scrum' },
     { path: '/planner-member', title: 'Planner-Member',  icon:'ni-planet text-blue', class: '',permission:'planner-member' },
-    { path: '/list-members', title: 'Usuarios',  icon:'ni-single-02 text-yellow', class: '',permission:'/planner-scrum' },
+    { path: '/list-members', title: 'Usuarios',  icon:'ni-single-02 text-yellow', class: '',permission:'planner-scrum' },
     { path: '/projects', title: 'Proyectos',  icon:'ni ni-folder-17 text-blue', class: '',permission:'*' },
-    { path: '/requirements', title: 'Requerimientos',  icon:'ni-bullet-list-67 text-red', class: '',permission:'*' },
+    { path: '/requirements', title: 'Requerimientos',  icon:'ni-bullet-list-67 text-red', class: '',permission:'planner-scrum' },
     { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '',permission:'*' },
 ];
 
