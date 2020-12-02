@@ -27,9 +27,6 @@ export class RequirementEditComponent implements OnInit {
 
   LaunchModal(req: Requirement) {
     Object.assign(this.RequirementOpened,req);
-    
-
-
     this.modalService.open(this.modalEdit, {ariaLabelledBy: 'modal-basic-title'});
   }
 
