@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ɵSWITCH_TEMPLATE_REF_FACTORY__POST_R3__ } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectBusinessService } from 'src/app/business/master/project-business.service';
 import { Project } from 'src/app/model/project';
@@ -16,6 +16,12 @@ export class ProjectEditComponent implements OnInit {
 
   @Output() OnSaveProjectEvent = new EventEmitter<boolean>();
   @ViewChild('ModalEdit',{static:false}) modalEdit;
+
+  StatesProyect:any = [
+    {'name':'Activo', 'value': true},
+    {'name':'Inactivo', 'value': false}
+  ]
+
   constructor(private modalService: NgbModal, private projectBussines: ProjectBusinessService) { }
 
   LaunchModal(isNew){
