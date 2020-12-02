@@ -35,7 +35,8 @@
         <div class="col-6">
           <label for="etiqueta">Fecha Fin</label>
           <input type="date" class="form-control" name="ProyEndDate" #ProyEndDate required
-            [(ngModel)]="ProjectOpened.EndDate" placeholder="Fecha de finalización">
+            [(ngModel)]="ProjectOpened.EndDate" placeholder="Fecha de finalización" 
+            [min]="this.ProjectOpened.StartDate" [disabled]="this.ProjectOpened.StartDate == null">
         </div>
         <div class="form-row" style="margin-top: 10px;">
           <div class="col-6">

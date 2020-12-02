@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectBusinessService } from 'src/app/business/master/project-business.service';
 import { Project } from 'src/app/model/project';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-project-edit',
@@ -12,6 +13,7 @@ export class ProjectEditComponent implements OnInit {
 
   public ProjectOpened = new Project(null, null);
   isNew = true;
+
   @Output() OnSaveProjectEvent = new EventEmitter<boolean>();
   @ViewChild('ModalEdit',{static:false}) modalEdit;
   constructor(private modalService: NgbModal, private projectBussines: ProjectBusinessService) { }
@@ -35,6 +37,7 @@ export class ProjectEditComponent implements OnInit {
     });
 
   }
+
 
   ngOnInit(): void {
   }
